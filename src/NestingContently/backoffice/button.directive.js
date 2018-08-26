@@ -11,7 +11,7 @@
  
     function ncToggle($rootScope) {
         const dir = {
-            restrict: 'E', 
+            restrict: 'E',
             template: template,
             link: (scope, element) => { 
 

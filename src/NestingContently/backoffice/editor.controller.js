@@ -10,7 +10,7 @@
 
         if (propElm) {
             propElm.parentElement.style.display = 'none';
-        }
+        } 
     }
 
     angular.module('umbraco').controller('nestingContentlyController', ['$scope', '$element', nestingContently]);

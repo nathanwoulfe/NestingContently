@@ -1,13 +1,15 @@
 (() => {
 
     // stuff the toggle directive into the nested content template
+    // this could be done using content events, but that then means the injected directive would need to be compiled
+    // while this is a bit flakey, it ensures the directive is in the DOM when the digest cycle runs so should be more efficient
     function interceptor($q) {
         return {
             response: resp => {
                 if (resp.config.url.toLowerCase().indexOf('/propertyeditors/nestedcontent/nestedcontent.html') !== -1) {
                     if (location.href.indexOf('content') !== -1) {                    
-                        const str = '<a class="nested-content__icon nested-content__icon--delete"';
-                        resp.data = resp.data.replace(str, '<nc-toggle></nc-toggle>'+ str);
+                        const pattern = /<a class="(umb-)?nested-content__icon (umb-)?nested-content__icon--delete"/gmi;
+                        resp.data = resp.data.replace(pattern, '<nc-toggle></nc-toggle>$&');
                     }
                 }
                 return resp || $q.when(resp); 
@@ -23,7 +25,7 @@
             $httpProvider.interceptors.push('nestingContentlyInterceptor');
         }
     }
-    angular.module('umbraco').config(['$httpProvider', add]);        
+    angular.module('umbraco').config(['$httpProvider', add]);
 
 })(); 
  
