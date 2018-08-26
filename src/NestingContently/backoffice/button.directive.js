@@ -8,16 +8,15 @@
                 ng-class="{ 'nested-content__icon--disabled' : disabled }" prevent-default>
             <i class="icon icon-power"></i>
         </a>`; 
-
+ 
     function ncToggle($rootScope) {
         const dir = {
-            restrict: 'E',
+            restrict: 'E', 
             template: template,
-            link: (scope, element) => {
+            link: (scope, element) => { 
 
                 let prop = {};
-
-                scope.disabled = false;
+                scope.disabled = false; 
 
                 scope.$watch('node', (a, b) => {
                     if (scope.node) {

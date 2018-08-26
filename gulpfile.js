@@ -32,7 +32,7 @@ gulp.task('js', () =>
         .pipe(config.prod ? babel() : util.noop())
         .pipe(config.prod ? concat('nesting-contently.min.js') : util.noop())
         .pipe(config.prod ? uglify() : util.noop())
-        .pipe(gulp.dest(urls.dest + config.folder + '/backoffice'))
+        .pipe(gulp.dest(urls.dest + (config.prod ? config.folder + '/backoffice' : '')))
 );
 
 gulp.task('manifest', () =>

@@ -4,7 +4,7 @@
         const findAncestor = (el, cls) => {
             while ((el = el.parentElement) && !el.classList.contains(cls));
             return el;
-        }
+        } 
 
         const propElm = findAncestor($element[0], 'umb-property');
 
@@ -13,7 +13,6 @@
         }
     }
 
-    // register controller
     angular.module('umbraco').controller('nestingContentlyController', ['$scope', '$element', nestingContently]);
 })();
 

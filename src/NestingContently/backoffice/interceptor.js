@@ -10,19 +10,20 @@
                         resp.data = resp.data.replace(str, '<nc-toggle></nc-toggle>'+ str);
                     }
                 }
-                return resp || $q.when(resp);
+                return resp || $q.when(resp); 
             }
         }; 
     }
 
     angular.module('umbraco').factory('nestingContentlyInterceptor', ['$q', interceptor]);
     
-    // add the interceptor, if it doesn't exist already
-    angular.module('umbraco')
-        .config(function ($httpProvider) {
-            if ($httpProvider.interceptors.indexOf('nestingContentlyInterceptor') === -1) {
-                $httpProvider.interceptors.push('nestingContentlyInterceptor');
-            }
-        });
+    // add the interceptor, if it doesn't exist already.
+    function add($httpProvider) {
+        if ($httpProvider.interceptors.indexOf('nestingContentlyInterceptor') === -1) {
+            $httpProvider.interceptors.push('nestingContentlyInterceptor');
+        }
+    }
+    angular.module('umbraco').config(['$httpProvider', add]);        
 
 })(); 
+ 
