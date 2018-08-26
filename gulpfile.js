@@ -29,16 +29,16 @@ gulp.task('clean', () =>
 
 gulp.task('js', () =>
     gulp.src(urls.js)
-    .pipe(config.prod ? babel() : util.noop())
-    .pipe(config.prod ? concat('nesting-contently.min.js') : util.noop())
-    .pipe(config.prod ? uglify() : util.noop())
-    .pipe(gulp.dest(urls.dest))
+        .pipe(config.prod ? babel() : util.noop())
+        .pipe(config.prod ? concat('nesting-contently.min.js') : util.noop())
+        .pipe(config.prod ? uglify() : util.noop())
+        .pipe(gulp.dest(urls.dest + config.folder + '/backoffice'))
 );
 
 gulp.task('manifest', () =>
     gulp.src(config.prod ? urls.prodManifest : urls.devManifest)
-    .pipe(rename('package.manifest'))
-    .pipe(gulp.dest(urls.dest + config.folder))
+        .pipe(rename('package.manifest'))
+        .pipe(gulp.dest(urls.dest + config.folder))
 );
 
 gulp.task('html', () => 

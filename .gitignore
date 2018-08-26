@@ -1,2 +1,4 @@
 node_modules/
 dist/
+buildpackage/artifacts/*.zip
+buildpackage/artifacts/*.nupkg
