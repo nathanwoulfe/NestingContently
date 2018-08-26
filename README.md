@@ -8,7 +8,7 @@ Depending on who you ask, a big gap in Umbraco's Nested Content property editor 
 This editor does exactly that - adds a disable/enable toggle to the Nested Content header so your editors will forever be ... wait for it ... Nesting Contently.
 
 ## Get it
- - via Nuget => Install-Package NestingContently.Umbraco
+ - via Nuget => `Install-Package NestingContently.Umbraco`
  - [zipped and ready to install](https://ci.appveyor.com/project/nathanwoulfe/nestingcontently/build/artifacts)
 
 ## Setup
