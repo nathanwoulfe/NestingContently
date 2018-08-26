@@ -3,7 +3,7 @@
 
 # NestingContently
 
-Depending on who you ask, a big gap in Umbraco's Nested Content property editor is the ability to disable nested items (ie, keep them in the current editor, but turn 'em off on the front end). There are workarounds, but the for our dear editors, the best solution is an additional button in the header row for each nested item (Archetype fans, I see you nodding).
+Depending on who you ask, a big gap in Umbraco's Nested Content property editor is the ability to disable nested items (ie, keep them in the current editor, but turn 'em off on the front end). There are workarounds, but for our Dear Editors, the best solution is an additional button in the header row for each nested item (Archetype fans, I see you nodding).
 
 This editor does exactly that - adds a disable/enable toggle to the Nested Content header so your editors will forever be ... wait for it ... Nesting Contently.
 
