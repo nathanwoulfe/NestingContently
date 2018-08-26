@@ -1,0 +1,21 @@
+﻿{   
+    propertyEditors: [      
+        {
+            alias: "NestingContently",
+            name: "Nesting Contently",
+            editor: {
+                view: "~/App_Plugins/NestingContently/backoffice/editor.html",
+				        valueType: "INT"
+            }
+        }        
+    ],
+    css: [
+        '~/app_plugins/nestingcontently/backoffice/styles.css'
+    ],
+    javascript: [	
+        '~/App_Plugins/NestingContently/backoffice/editor.controller.js',
+        '~/App_Plugins/NestingContently/backoffice/interceptor.js',
+        '~/App_Plugins/NestingContently/backoffice/button.directive.js'
+
+    ]    
+}
