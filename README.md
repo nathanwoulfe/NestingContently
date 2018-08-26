@@ -16,10 +16,10 @@ This editor does exactly that - adds a disable/enable toggle to the Nested Conte
  - Install this package (derp)
  - Create a new data type using the Nesting Contently editor
  - Add the data type to the Nested Content document type
- - Name it whatever you like, but ideally set the alias to `umbracoNaviHide` to be able to use the `.IsVisible()` extension when iterating the nested items
+ - Name it whatever you like, but ideally set the alias to `umbracoNaviHide` to be able to use the `.IsVisible()` extension when iterating the nested items. Using any other alias means you'll need to check the property value when rendering
  - Stun your content editors with your brilliance
  
-The editor itself is not displayed when editing the nested items - it only exists to create the property on the document type. Instead, the response containing the Nested Content editor HTML is intercepted and modified to inject the new button as an AngualarJs directive. 
+The editor itself is not displayed when editing the nested items - it only exists to create the property on the document type. Instead, the response containing the Nested Content editor HTML is intercepted and modified to inject the new button as an AngularJs directive. 
 
 The button is displayed in header rows for nested items containing the Nesting Contently editor, so we can have NC items with the disable/enable toggle, and others without, in the same Nested Content property. Cool, right?
 
