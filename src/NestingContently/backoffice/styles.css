@@ -1,3 +1,15 @@
+/* 7.12.1+ */
+nc-toggle .umb-nested-content__icon--disabled:hover { 
+    border-color: #00aea2 !important;
+    opacity: 1;
+}
+
+nc-toggle .umb-nested-content__icon--disabled:hover .icon-power { 
+    color: #00aea2 !important;
+    opacity: 1;
+} 
+
+/* pre 7.12.1 */
 nc-toggle .nested-content__icon--disabled:hover { 
     border-color: #2e8aea !important;
     opacity: 1;
@@ -6,4 +18,4 @@ nc-toggle .nested-content__icon--disabled:hover {
 nc-toggle .nested-content__icon--disabled:hover .icon-power { 
     color: #2e8aea !important;
     opacity: 1;
-} 
+}  

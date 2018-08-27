@@ -4,14 +4,14 @@
         const findAncestor = (el, cls) => {
             while ((el = el.parentElement) && !el.classList.contains(cls));
             return el;
-        } 
-
+        }
+        
         const propElm = findAncestor($element[0], 'umb-property');
 
-        if (propElm) {
+        if (propElm) { 
             propElm.parentElement.style.display = 'none';
         } 
-    }
+    } 
 
     angular.module('umbraco').controller('nestingContentlyController', ['$scope', '$element', nestingContently]);
 })();

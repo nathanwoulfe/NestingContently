@@ -1,11 +1,11 @@
 (() => {
 
     const template = `
-        <a class="nested-content__icon nested-content__icon--disable" 
+        <a class="{{ class }}" 
                 title="{{ iconTitle }}" 
                 node="$parent.nodes[$index]"
                 ng-click="toggle($index); $event.stopPropagation();" 
-                ng-class="{ 'nested-content__icon--disabled' : disabled }" prevent-default>
+                ng-class="disabledClass()" prevent-default>
             <i class="icon icon-power"></i>
         </a>`; 
  
@@ -13,11 +13,16 @@
         const dir = {
             restrict: 'E',
             template: template,
-            link: (scope, element) => { 
-
-                let prop = {};
+            link: (scope, element, attrs) => {  
+                
+                let prop = {};                                
+                const prefix = attrs.prefix;                 
+                
                 scope.disabled = false; 
-
+                scope.class = `${prefix}nested-content__icon ${prefix}nested-content__icon--disable`;
+                                
+                scope.disabledClass = () => scope.disabled ? `${prefix}nested-content__icon--disabled` : '';
+                
                 scope.$watch('node', (a, b) => {
                     if (scope.node) {
                         const props = scope.node.tabs[0].properties.filter(p => p.editor === 'NestingContently');
@@ -30,7 +35,7 @@
                             element[0].style.display = 'none';
                         }
                     }
-                }, true);
+                }, true); 
 
                 scope.toggle = idx => {
                     scope.disabled = !scope.disabled;
