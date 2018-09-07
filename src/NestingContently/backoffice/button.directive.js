@@ -15,13 +15,14 @@
             template: template,
             link: (scope, element, attrs) => {  
                 
-                let prop = {};                                
-                const prefix = attrs.prefix;                 
-                
-                scope.disabled = false; 
-                scope.class = `${prefix}nested-content__icon ${prefix}nested-content__icon--disable`;
-                                
-                scope.disabledClass = () => scope.disabled ? `${prefix}nested-content__icon--disabled` : '';
+                let prop = {};      
+                let disabled = false; 
+
+                const prefix = attrs.prefix;         
+                const elementClass = `${prefix}nested-content__item--disabled`;
+                 
+                scope.class = `${prefix}nested-content__icon ${prefix}nested-content__icon--disable`;                
+                scope.disabledClass = () => disabled ? `${prefix}nested-content__icon--disabled` : '';
                 
                 scope.$watch('node', (a, b) => {
                     if (scope.node) {
@@ -29,22 +30,28 @@
                          
                         if (props.length === 1) {
                             prop = props[0];
-                            scope.disabled = +prop.value === 1;
-                            scope.iconTitle = scope.disabled ? 'Enable' : 'Disable';
+                            disabled = +prop.value === 1;
+                            scope.iconTitle = disabled ? 'Enable' : 'Disable'; 
+                            
+                            if (disabled) {
+                                element.closest('[class*=nested-content__item]')[0].classList.add(elementClass);
+                            }
                         } else {
                             element[0].style.display = 'none';
                         }
                     }
                 }, true); 
 
-                scope.toggle = idx => {
-                    scope.disabled = !scope.disabled;
-                    scope.iconTitle = scope.disabled ? 'Enable' : 'Disable';
+                scope.toggle = idx => { 
+                    disabled = !disabled;
+                    scope.iconTitle = disabled ? 'Enable' : 'Disable';
 
-                    prop.value = scope.disabled ? 1 : 0;
+                    prop.value = disabled ? 1 : 0;
 
-                    scope.$parent.model.value[idx].disabled = prop.value;
-                    scope.$parent.$parent.$parent.model.value[idx].disabled = prop.value;
+                    scope.$parent.model.value[idx].disabled = disabled;
+                    scope.$parent.$parent.$parent.model.value[idx].disabled = disabled;
+                    
+                    element.closest('[class*=nested-content__item]')[0].classList.toggle(elementClass);
                 }
             }
         };

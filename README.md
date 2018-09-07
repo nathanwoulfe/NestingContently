@@ -3,7 +3,9 @@
 
 # NestingContently
 
-Depending on who you ask, a big gap in Umbraco's Nested Content property editor is the ability to disable nested items (ie, keep them in the current editor, but turn 'em off on the front end). There are workarounds, but for our Dear Editors, the best solution is an additional button in the header row for each nested item (Archetype fans, I see you nodding).
+Depending on who you ask, a big gap in Umbraco's Nested Content property editor is the ability to disable nested items (ie, keep them in the current editor, but turn 'em off on the front end). 
+
+There are workarounds, but for our Dear Editors, the best solution is an additional button in the header row for each nested item (Archetype fans, I see you nodding).
 
 This editor does exactly that - adds a disable/enable toggle to the Nested Content header so your editors will forever be ... wait for it ... Nesting Contently.
 
@@ -26,6 +28,26 @@ The button is displayed in header rows for nested items containing the Nesting C
 Toggling the button modifies the parent's parent's parent's (maybe another parent) model value, and all is well. 
 
 There's no need to touch any core files, so no worries with upgrade paths being borked. Some of the implementation is a little bit dirty, but this is essentially a hack anyway, so sue me.
+
+### Extra setup bit
+
+The above bits said, Models Builder doesn't play nice with Nesting Contently given the absence of a property value converter. Rather than adding an assembly to the package simply to deliver 8 lines of code, it's included below instead. 
+
+Depending on your setup, this may not matter - using `umbracoNaviHide` and `.IsVisible()` will work fine without the converter - `.IsVisible()` explicitly uses Umbraco's built-in boolean converter, and is nicely declarative so makes your code more readable.
+
+Add this somewhere to your solution to keep Models Builder happy:
+
+```csharp
+[PropertyValueType(typeof(bool))]
+[PropertyValueCache(PropertyCacheValue.All, PropertyCacheLevel.Content)]
+public class NestingContentlyValueConverter : Umbraco.Core.PropertyEditors.ValueConverters.YesNoValueConverter
+{
+    public override bool IsConverter(PublishedPropertyType propertyType)
+    {
+        return propertyType.PropertyEditorAlias == "NestingContently";
+    }
+}    
+```
 
 ## Drama Cabana
 
