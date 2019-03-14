@@ -17,7 +17,7 @@ nc-toggle .umb-nested-content__icon--disabled:hover {
 }
 .umb-nested-content__item--disabled
 nc-toggle .umb-nested-content__icon--disabled:hover .icon-power { 
-    color: #00aea2;
+    color: #fff;
 } 
 
 /* pre 7.12.1 */
