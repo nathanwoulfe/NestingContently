@@ -1,5 +1,5 @@
 # version format
-version: 1.0.6.{build}
+version: 1.0.7.{build}
 
 image: Visual Studio 2017
 
@@ -39,9 +39,9 @@ deploy:
         appveyor_repo_tag: true      
     
   - provider: GitHub
-    tag: v1.0.6
-    release: Release 1.0.6
-    description: "Updates notes in readme re property value converter, shifts disabled class to NC row rather than the button. Cleans up some javascript stuff too, just for fun"
+    tag: v1.0.7
+    release: Release 1.0.7
+    description: "CSS state for active button"
     force_update: true
     auth_token:
         secure: Otbl8p8qCwciDqJgSWCyN0Arfs5XS1CwiHcK+r0F6uz9Rxt4gzBFvlc3cjPV3NxR
