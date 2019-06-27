@@ -1,5 +1,5 @@
 # version format
-version: 1.0.7.{build}
+version: 2.0.0.{build}
 
 image: Visual Studio 2017
 
@@ -11,7 +11,7 @@ cache:
 install:
   - set PATH=C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe;C:\Ruby22\bin;%PATH%
   - cmd: npm install -g gulp-cli
-  - cmd: set UMBRACO_PACKAGE_MIN_VERSION=7.7.0
+  - cmd: set UMBRACO_PACKAGE_MIN_VERSION=8.0.2
   - cmd: cd BuildPackage
   - cmd: Build.bat
   
@@ -30,7 +30,7 @@ deploy:
   - provider: NuGet
     server:
     api_key:
-      secure: ORGl5eR/eDby41oG+g9voQ+lmTDIK9SbEzPawNN9yKTvvdKn/XC97dfnOcX7vIOA
+      secure: DvzN77++eNMBd8IMR7bYlCiJV7D2M3bpk5kigX8yYwgDfnX12BkbL4w0OAJiFdQa
     skip_symbols: false      
     symbol_server:    
     artifact: /.*\.nupkg/
@@ -39,9 +39,9 @@ deploy:
         appveyor_repo_tag: true      
     
   - provider: GitHub
-    tag: v1.0.7
-    release: Release 1.0.7
-    description: "CSS state for active button"
+    tag: v2.0.0
+    release: Release 2.0.0
+    description: "Welcome to V8"
     force_update: true
     auth_token:
         secure: Otbl8p8qCwciDqJgSWCyN0Arfs5XS1CwiHcK+r0F6uz9Rxt4gzBFvlc3cjPV3NxR

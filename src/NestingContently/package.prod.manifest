@@ -5,7 +5,7 @@
             name: "Nesting Contently",
             editor: {
                 view: "~/app_plugins/nestingcontently/backoffice/editor.html",
-				        valueType: "INT"
+                valueType: "INT"
             }
         }        
     ],

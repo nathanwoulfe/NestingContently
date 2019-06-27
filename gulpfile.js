@@ -72,7 +72,7 @@ gulp.task('export', done => {
     done();
 });
 
-//  gulp watch --dest '../umbraco.7.9/umbraco790/app_plugins'
+//  gulp watch --dest '../path/to/app_plugins'
 gulp.task('watch', () => {
     gulp.watch([urls.js, urls.html, urls.css, urls.devManifest], gulp.series('default'));
 });

@@ -15,7 +15,7 @@
     javascript: [	
         '~/app_plugins/nestingcontently/backoffice/editor.controller.js',
         '~/app_plugins/nestingcontently/backoffice/interceptor.js',
-        '~/app_plugins/nestingcontently/backoffice/button.directive.js'
+        '~/app_plugins/nestingcontently/backoffice/button.component.js'
 
     ]    
 }

@@ -1,6 +1,6 @@
 ﻿(() => {
     // for this to work, we need a property editor, we don't, however, need it to be visible or edited...
-    function nestingContently($scope, $element) {
+    function nestingContently($element) {
         const findAncestor = (el, cls) => {
             while ((el = el.parentElement) && !el.classList.contains(cls));
             return el;
@@ -13,6 +13,6 @@
         } 
     } 
 
-    angular.module('umbraco').controller('nestingContentlyController', ['$scope', '$element', nestingContently]);
+    angular.module('umbraco').controller('nestingContentlyController', ['$element', nestingContently]);
 })();
 
