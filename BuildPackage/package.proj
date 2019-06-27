@@ -17,7 +17,7 @@
 	<!-- SHARED PROPERTIES -->
 	<PropertyGroup>
 		<PackageName>Nesting Contently</PackageName>
-		<MinUmbracoVersion>7.7.0</MinUmbracoVersion>
+		<MinUmbracoVersion>8.0.2</MinUmbracoVersion>
 		<Readme>A property editor for toggling the display state of Nested Content items</Readme>
 		<AuthorName>Nathan Woulfe</AuthorName>
 		<AuthorUrl>https://github.com/nathanwoulfe</AuthorUrl>
