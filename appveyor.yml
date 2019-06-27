@@ -1,5 +1,5 @@
 # version format
-version: 2.0.0.{build}
+version: 2.0.1.{build}
 
 image: Visual Studio 2017
 
@@ -39,8 +39,8 @@ deploy:
         appveyor_repo_tag: true      
     
   - provider: GitHub
-    tag: v2.0.0
-    release: Release 2.0.0
+    tag: v2.0.1
+    release: Release 2.0.1
     description: "Welcome to V8"
     force_update: true
     auth_token:
