@@ -9,6 +9,8 @@ There are workarounds, but for our Dear Editors, the best solution is an additio
 
 This editor does exactly that - adds a disable/enable toggle to the Nested Content header so your editors will forever be ... wait for it ... Nesting Contently.
 
+Supports Umbraco v7 (Nesting Contently v1) and v8 (Nesting Contently v2). Installing the wrong version won't blow up your site, it just won't work.
+
 ## Get it
  - via Nuget => `Install-Package NestingContently.Umbraco`
  - [zipped and ready to install](https://ci.appveyor.com/project/nathanwoulfe/nestingcontently/build/artifacts)
