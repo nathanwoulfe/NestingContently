@@ -8,9 +8,12 @@
         
         const propElm = findAncestor($element[0], 'umb-property');
 
-        if (propElm) { 
-            propElm.parentElement.style.display = 'none';
-        } 
+        if (propElm) {
+            var parentElem = propElm.parentElement;
+            if (parentElem.classList.contains('umb-nested-content-property-container')) {
+                parentElem.style.display = 'none';
+            }
+        }
     } 
 
     angular.module('umbraco').controller('nestingContentlyController', ['$element', nestingContently]);
