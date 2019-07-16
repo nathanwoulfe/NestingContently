@@ -19,7 +19,7 @@
         const setClass = fn => $element.closest(itemClass)[0].classList[fn](disabledClass);
         const setTitle = () => this.iconTitle = disabled ? labels.enable :labels.disable;
         
-        this.disabledClass = () => disabled ? elementClass : '';
+        this.disabledClass = () => disabled ? disabledClass : '';
         
         this.toggle = () => {
             disabled = !disabled;
