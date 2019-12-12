@@ -4,14 +4,14 @@
     function controller($element, $scope, locale) {
 
         let prop = {};
-        let labels = {};
+        let labels = {}; 
         let disabled = false;
 
         locale.localizeMany(['actions_enable','actions_disable']).then(data => {
             labels.enable = data[0];
             labels.disable = data[1];
         });
-
+ 
         const disabledClass = 'umb-nested-content__item--disabled';
         const itemClass = '.umb-nested-content__item';
         const editorName = 'NestingContently';
@@ -26,15 +26,14 @@
             
             prop.value = disabled ? 1 : 0;
 
-            this.parent.model.value[this.index].disabled = disabled;
-            this.parent.$parent.$parent.model.value[this.index].disabled = disabled;
+            this.model.value[this.index].disabled = disabled;
          
             setTitle();
             setClass('toggle');
         }
 
         this.$onInit = () => {
-            if (this.node) {                
+            if (this.node) {                              
                 const props = this.node.variants[0].tabs[0]
                     .properties.filter(p => p.editor === editorName);
 
@@ -67,7 +66,7 @@
         bindings: {
             node: '<',
             index: '<',
-            parent: '<'
+            model: '<'
         },
         controller: controller,
         template: template
@@ -75,5 +74,5 @@
 
     controller.$inject = ['$element', '$scope', 'localizationService'];
 
-    angular.module('umbraco.directives').component('ncToggle', component);
+    angular.module('nc.components').component('ncToggle', component);
 })();

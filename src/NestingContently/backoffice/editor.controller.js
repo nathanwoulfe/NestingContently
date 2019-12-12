@@ -18,4 +18,3 @@
 
     angular.module('umbraco').controller('nestingContentlyController', ['$element', nestingContently]);
 })();
-

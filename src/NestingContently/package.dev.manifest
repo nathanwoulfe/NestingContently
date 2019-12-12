@@ -13,8 +13,8 @@
         '~/app_plugins/nestingcontently/backoffice/styles.css'
     ],
     javascript: [	
+        '~/app_plugins/nestingcontently/backoffice/app.js',
         '~/app_plugins/nestingcontently/backoffice/editor.controller.js',
-        '~/app_plugins/nestingcontently/backoffice/interceptor.js',
         '~/app_plugins/nestingcontently/backoffice/button.component.js'
 
     ]    
