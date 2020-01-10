@@ -1,7 +1,7 @@
 (() => {
     'use strict';
 
-    function controller($element, $scope, locale) {
+    function controller($element, locale) {
 
         let prop = {};
         let labels = {}; 
@@ -23,7 +23,7 @@
         
         this.toggle = () => {
             disabled = !disabled;
-            
+
             prop.value = disabled ? "1" : "0";
 
             this.model.value[this.index].disabled = disabled;
@@ -32,11 +32,9 @@
                 this.model.value[this.index].umbracoNaviHide = prop.value;
             }
 
-            console.log(this.model.value[this.index]);
-            
             setTitle();
             setClass('toggle');
-        }
+        };
 
         this.$onInit = () => {
             if (this.node) {                              
@@ -78,7 +76,7 @@
         template: template
     };
 
-    controller.$inject = ['$element', '$scope', 'localizationService'];
+    controller.$inject = ['$element', 'localizationService'];
 
     angular.module('nc.components').component('ncToggle', component);
 })();
