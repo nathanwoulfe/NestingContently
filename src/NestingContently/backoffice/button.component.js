@@ -24,10 +24,16 @@
         this.toggle = () => {
             disabled = !disabled;
             
-            prop.value = disabled ? 1 : 0;
+            prop.value = disabled ? "1" : "0";
 
             this.model.value[this.index].disabled = disabled;
-         
+
+            if (this.model.value[this.index].hasOwnProperty('umbracoNaviHide')) {
+                this.model.value[this.index].umbracoNaviHide = prop.value;
+            }
+
+            console.log(this.model.value[this.index]);
+            
             setTitle();
             setClass('toggle');
         }
@@ -39,7 +45,7 @@
 
                 if (props.length === 1) {
                     prop = props[0];
-                    disabled = +prop.value === 1;
+                    disabled = prop.value === "1";
 
                     setTitle();
                     
