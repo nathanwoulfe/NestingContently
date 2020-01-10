@@ -26,8 +26,10 @@
             
             prop.value = disabled ? "1" : "0";
 
+            this.model.value[this.index].disable = prop.value;
+
             if (this.model.value[this.index].hasOwnProperty('umbracoNaviHide')) {
-                this.model.value[this.index].umbracoNaviHide = prop.value;
+                this.model.value[this.index].umbracoNaviHide = disabled;
             }
             
             setTitle();
