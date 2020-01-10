@@ -1,5 +1,5 @@
 # version format
-version: 2.1.0.{build}
+version: 2.1.1.{build}
 
 image: Visual Studio 2017
 
@@ -39,9 +39,9 @@ deploy:
         appveyor_repo_tag: true      
     
   - provider: GitHub
-    tag: v2.1.0
-    release: Release 2.1.0
-    description: "8.4 bugfixes"
+    tag: v2.1.1
+    release: Release 2.1.1
+    description: "Fix disabled properties inconsistency"
     force_update: true
     auth_token:
         secure: Otbl8p8qCwciDqJgSWCyN0Arfs5XS1CwiHcK+r0F6uz9Rxt4gzBFvlc3cjPV3NxR
