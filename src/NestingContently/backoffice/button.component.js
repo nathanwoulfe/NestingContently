@@ -58,12 +58,12 @@
     }
  
     const template = `
-        <a class="umb-nested-content__icon umb-nested-content__icon--disable" 
+        <button type="button" class="umb-nested-content__icon umb-nested-content__icon--disable" 
             title="{{ $ctrl.iconTitle }}" 
             ng-click="$ctrl.toggle(); $event.stopPropagation()" 
             ng-class="$ctrl.disabledClass()" prevent-default>
             <i class="icon icon-power"></i>
-        </a>`;
+        </button>`;
 
     const component = {
         transclude: true,
