@@ -2,3 +2,4 @@ node_modules/
 dist/
 buildpackage/artifacts/*.zip
 buildpackage/artifacts/*.nupkg
+/.vs/NestingContently/v16
