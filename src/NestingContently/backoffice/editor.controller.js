@@ -9,8 +9,8 @@
         const propElm = findAncestor($element[0], 'umb-property');
 
         if (propElm) {
-            var parentElem = propElm.parentElement;
-            if (parentElem.classList.contains('umb-nested-content-property-container')) {
+            var parentElem = findAncestor(propElm, 'umb-nested-content-property-container');
+            if (parentElem) {
                 parentElem.style.display = 'none';
             }
         }
