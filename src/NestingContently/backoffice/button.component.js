@@ -1,7 +1,7 @@
 (() => {
     'use strict';
 
-    function controller($element, locale, strings) {
+    function controller($element, $rootScope, locale, strings) {
 
         let prop = {};
         let labels = {}; 
@@ -18,7 +18,9 @@
         
         this.toggle = () => {
             disabled = !disabled;
-            this.model.value[this.index][prop.propertyAlias] = prop.value = disabled ? '1' : '0';
+            prop.value = disabled ? '1' : '0';
+
+            $rootScope.$broadcast('ncDisabledToggle', { value: prop.value, key: this.node.key });
 
             setTitle();
             setDisabledClass();
@@ -62,14 +64,13 @@
         transclude: true,
         bindings: {
             node: '<',
-            index: '<',
-            model: '<'
+            index: '<'
         },
         controller: controller,
         template: template
     };
 
-    controller.$inject = ['$element', 'localizationService', 'ncStrings'];
+    controller.$inject = ['$element', '$rootScope', 'localizationService', 'ncStrings'];
 
     angular.module('nc.components').component('ncToggle', component);
 })();
