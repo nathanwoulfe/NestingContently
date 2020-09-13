@@ -12,15 +12,18 @@
             labels.disable = data[1];
         }); 
 
-        const setClass = fn => $element.closest(strings.itemClass)[0].classList[fn](strings.disabledClass);
+        const setClass = fn => $element.closest(strings[this.type].itemClass)[0]
+            .classList[fn](strings[this.type].disabledClass);
         const setTitle = () => this.iconTitle = disabled ? labels.enable : labels.disable;        
-        const setDisabledClass = () => this.disabledClass = disabled ? strings.disabledClass : '';
+        const setDisabledClass = () => this.disabledClass = disabled ? strings[this.type].disabledClass : '';
         
         this.toggle = () => {
             disabled = !disabled;
             prop.value = disabled ? '1' : '0';
 
-            $rootScope.$broadcast('ncDisabledToggle', { value: prop.value, key: this.node.key });
+            if (this.type === 'nc') {
+                $rootScope.$broadcast('ncDisabledToggle', { value: prop.value, key: this.node.key });
+            }
 
             setTitle();
             setDisabledClass();
@@ -29,7 +32,7 @@
 
         this.$onInit = () => {
             if (this.node) {  
-                const props = this.node.variants[0].tabs[0]
+                const props = (this.type === 'nc' ? this.node : this.node.content).variants[0].tabs[0]
                     .properties.filter(p => p.editor === strings.editorName);
 
                 if (props.length === 1) {
@@ -64,7 +67,8 @@
         transclude: true,
         bindings: {
             node: '<',
-            index: '<'
+            index: '<',
+            type: '@'
         },
         controller: controller,
         template: template
