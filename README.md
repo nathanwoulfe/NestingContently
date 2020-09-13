@@ -37,7 +37,7 @@ The above bits said, Models Builder doesn't play nice with Nesting Contently giv
 
 Depending on your setup, this may not matter - using `umbracoNaviHide` and `.IsVisible()` will work fine without the converter - `.IsVisible()` explicitly uses Umbraco's built-in boolean converter, and is nicely declarative so makes your code more readable.
 
-Add this somewhere to your solution to keep Models Builder happy:
+Add this somewhere to your solution to keep Models Builder happy (for v7, and v8, respectively):
 
 ```csharp
 [PropertyValueType(typeof(bool))]
@@ -49,6 +49,16 @@ public class NestingContentlyValueConverter : Umbraco.Core.PropertyEditors.Value
         return propertyType.PropertyEditorAlias == "NestingContently";
     }
 }    
+```
+
+```csharp
+using Umbraco.Core.Models.PublishedContent;
+
+public class NestingContentlyValueConverter : Umbraco.Core.PropertyEditors.ValueConverters.YesNoValueConverter
+{
+   public override bool IsConverter(IPublishedPropertyType propertyType)
+      => propertyType.EditorAlias == "NestingContently";
+}
 ```
 
 ## Drama Cabana
