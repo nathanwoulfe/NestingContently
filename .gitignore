@@ -3,3 +3,4 @@ dist/
 buildpackage/artifacts/*.zip
 buildpackage/artifacts/*.nupkg
 /.vs/NestingContently/v16
+.vs/VSWorkspaceState.json

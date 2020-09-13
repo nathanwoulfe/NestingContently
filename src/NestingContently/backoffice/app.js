@@ -2,10 +2,16 @@
 
     angular.module('nc.components', []);
 
-    angular.module('nc', [
-        'nc.components'
-    ]);
-    
+    angular
+        .module('nc', [
+            'nc.components'
+        ])
+        .constant('ncStrings', {
+            disabledClass: 'umb-nested-content__item--disabled',
+            itemClass: '.umb-nested-content__item',
+            editorName: 'NestingContently'
+        });
+
     angular.module('umbraco').requires.push('nc');
     
     for (let q of angular.module('umbraco')._invokeQueue) {
