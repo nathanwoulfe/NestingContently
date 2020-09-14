@@ -20,16 +20,19 @@
 
     angular.module('umbraco').requires.push('nc');
     
-    for (let q of angular.module('umbraco')._invokeQueue) {
-        let queueItem = q[2][0];
+    const ncPattern = /<div class="umb-nested-content__icons">/gmi;
+    const blPattern = /<div class="umb-block-list__block--actions">/gmi;
 
-        if (queueItem === 'nestedContentPropertyEditor') { 
-            const pattern = /<div class="umb-nested-content__icons">/gmi;
-            q[2][1].template = q[2][1].template.replace(pattern, '$&<nc-toggle node="node" index="$index" type="nc"></nc-toggle>'); 
+    const ncString = '$&<nc-toggle node="node" index="$index" type="nc"></nc-toggle>';
+    const blString = '$&<nc-toggle node="vm.layout.$block" index="vm.index" type="bl"></nc-toggle>';
+
+    for (let q of angular.module('umbraco')._invokeQueue) {
+        let queueItem = q[2][0];        
+
+        if (queueItem === 'nestedContentPropertyEditor') {             
+            q[2][1].template = q[2][1].template.replace(ncPattern, ncString); 
         } else if (queueItem === 'umbBlockListRow') {
-            const pattern = /<div class="umb-block-list__block--actions">/gmi;
-            q[2][1].template = q[2][1].template.replace(pattern, '$&<nc-toggle node="vm.layout.$block" index="vm.index" type="bl"></nc-toggle>');
-            console.log(q[2][1].template);
+            q[2][1].template = q[2][1].template.replace(blPattern, blString);
         }
     }
     
