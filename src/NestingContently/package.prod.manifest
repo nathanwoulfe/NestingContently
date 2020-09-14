@@ -3,6 +3,7 @@
         {
             alias: "NestingContently",
             name: "Nesting Contently",
+            icon: "icon-bird",
             editor: {
                 view: "~/app_plugins/nestingcontently/backoffice/editor.html",
                 valueType: "INT"

@@ -1,5 +1,5 @@
 # version format
-version: 2.1.2.{build}
+version: 3.0.0.{build}
 
 image: Visual Studio 2017
 
@@ -39,9 +39,9 @@ deploy:
         appveyor_repo_tag: true      
     
   - provider: GitHub
-    tag: v2.1.2
-    release: Release 2.1.2
-    description: "Update icon element from <a> to <button> for umb8.6"
+    tag: v3.0.0
+    release: Nesting Contently III - With a Vengeance.
+    description: "Makes it work with Block List in 8.7, and nested Nested Content, if that floats your boat."
     force_update: true
     auth_token:
         secure: Otbl8p8qCwciDqJgSWCyN0Arfs5XS1CwiHcK+r0F6uz9Rxt4gzBFvlc3cjPV3NxR

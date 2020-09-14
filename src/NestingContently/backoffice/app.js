@@ -1,7 +1,7 @@
 (() => {
 
     angular.module('nc.components', []);
-
+ 
     angular
         .module('nc', [
             'nc.components'
