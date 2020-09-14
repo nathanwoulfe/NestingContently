@@ -1,9 +1,4 @@
-.umb-nested-content__item--disabled nc-toggle .umb-nested-content__icon--disabled,
-.umb-nested-content__item--disabled nc-toggle .umb-nested-content__icon--disabled .icon-power,
-.umb-nested-content__icon--disabled {
-    opacity:1;
-}
-
+.umb-block-list__block--disabled,
 .umb-nested-content__item--disabled {
     opacity: 0.5; 
 }

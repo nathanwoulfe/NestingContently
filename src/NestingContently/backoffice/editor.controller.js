@@ -1,24 +1,31 @@
 ﻿(() => {
     function nestingContently($scope, $element) {
-        const propElm = $element[0].closest('.umb-nested-content-property-container');
+        // get the closest nested content property, or generic umb property if no NC
+        let propElm = $element[0].closest('.umb-nested-content-property-container');
+        let isNc = propElm != null;
+
+        propElm = propElm || $element[0].closest('umb-property');
+
         if (propElm) {
             propElm.style.display = 'none';
         }
 
-        // find the key for this NC panel, to use as a guard
-        // when receiving the ncDisabledToggle event
-        let ncScope = $scope.$parent.$parent;
-        do {
-            ncScope = ncScope.$parent;
-        } while (!Object.prototype.hasOwnProperty.call(ncScope, 'ngModel'));
+        // NestedContent needs events to work, due to binding craziness
+        // BlockList does not, so we can guard this entire block
+        if (isNc) {
+            let scope = $scope.$parent.$parent;
+            do {
+                scope = scope.$parent;
+            } while (!Object.prototype.hasOwnProperty.call(scope, 'ngModel'));
 
-        const key = ncScope.ngModel.key;
+            const key = scope.ngModel.key;
 
-        $scope.$on('ncDisabledToggle', (e, data) => {
-            if (key === data.key) {
-                $scope.model.value = data.value;
-            }
-        });
+            $scope.$on('ncDisabledToggle', (e, data) => {
+                if (key === data.key) {
+                    $scope.model.value = data.value;
+                }
+            });
+        }
     }
 
     angular.module('umbraco').controller('nestingContentlyController', ['$scope', '$element', nestingContently]);

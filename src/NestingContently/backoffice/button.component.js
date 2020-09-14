@@ -4,40 +4,40 @@
     function controller($element, $rootScope, locale, strings) {
 
         let prop = {};
-        let labels = {}; 
+        let labels = {};
         let disabled = false;
 
         locale.localizeMany(['actions_enable','actions_disable']).then(data => {
-            labels.enable = data[0];  
-            labels.disable = data[1];
+            let [enable, disable] = data;
+            labels = { enable, disable };
         }); 
 
-        const setClass = fn => $element.closest(strings.itemClass)[0].classList[fn](strings.disabledClass);
+        const setClass = fn => $element.closest(strings[this.type].itemClass)[0]
+            .classList[fn](strings[this.type].disabledClass);
+
         const setTitle = () => this.iconTitle = disabled ? labels.enable : labels.disable;        
-        const setDisabledClass = () => this.disabledClass = disabled ? strings.disabledClass : '';
         
         this.toggle = () => {
             disabled = !disabled;
             prop.value = disabled ? '1' : '0';
 
-            $rootScope.$broadcast('ncDisabledToggle', { value: prop.value, key: this.node.key });
+            if (this.type === 'nc') {
+                $rootScope.$broadcast('ncDisabledToggle', { value: prop.value, key: this.node.key });
+            }
 
             setTitle();
-            setDisabledClass();
             setClass('toggle');
         };
 
         this.$onInit = () => {
             if (this.node) {  
-                const props = this.node.variants[0].tabs[0]
-                    .properties.filter(p => p.editor === strings.editorName);
+                prop = (this.type === 'nc' ? this.node : this.node.content).variants[0].tabs[0]
+                    .properties.find(p => p.editor === strings.editorName);
 
-                if (props.length === 1) {
-                    prop = props[0];
+                if (prop) {
                     disabled = prop.value === '1';
 
                     setTitle();
-                    setDisabledClass();
                     
                     if (disabled) {
                         setClass('add');
@@ -52,11 +52,10 @@
     const template = `
         <button type="button" class="umb-nested-content__icon umb-nested-content__icon--disable" 
             title="{{ $ctrl.iconTitle }}" 
-            ng-click="$ctrl.toggle(); $event.stopPropagation()" 
-            ng-class="$ctrl.disabledClass">
+            ng-click="$ctrl.toggle(); $event.stopPropagation()">
             <i class="icon icon-power" aria-hidden="true"></i>
             <span class="sr-only">
-                <localize key="general_disable">Disable</localize>
+                {{ $ctrl.iconTitle }}
             </span>
         </button>`;
 
@@ -64,7 +63,8 @@
         transclude: true,
         bindings: {
             node: '<',
-            index: '<'
+            index: '<',
+            type: '@'
         },
         controller: controller,
         template: template
