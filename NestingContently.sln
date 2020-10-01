@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NestingContently.Umbraco.ValueConverters", "NestingContently.Umbraco.ValueConverters\NestingContently.Umbraco.ValueConverters.csproj", "{D132F991-BA23-43DC-B826-360C1B3DD43F}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NestingContently.Umbraco", "NestingContently.Umbraco\NestingContently.Umbraco.csproj", "{73644C7C-CC4D-43F1-AAA7-B5A7810A1501}"
 EndProject
 Global
