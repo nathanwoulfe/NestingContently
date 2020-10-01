@@ -1,51 +1,39 @@
-# version format
-version: 3.0.0.{build}
-
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 cache:
-  - c:\projects\nestingcontently\node_modules -> **\packages.json
+  - packages -> **\packages.config
+  - '%APPDATA%\npm-cache'
   
-# UMBRACO_PACKAGE_PRERELEASE_SUFFIX will only be used for Release builds
-# example UMBRACO_PACKAGE_PRERELEASE_SUFFIX=beta
 install:
-  - set PATH=C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe;C:\Ruby22\bin;%PATH%
-  - cmd: npm install -g gulp-cli
-  - cmd: set UMBRACO_PACKAGE_MIN_VERSION=8.4.0
-  - cmd: cd BuildPackage
-  - cmd: Build.bat
-  
-branches:
-  only: 
-  - master
+  - cmd: npm install --global parcel-bundler
+  - cmd: dotnet tool install --global Umbraco.Tools.Packages
+
+platform: Any CPU
+configuration: Release
+
+before_build:
+  - nuget restore
+
+build:
+  parallel: true
 
 test: off
-build: off
 
 artifacts:
-  - path: BuildPackage\artifacts\*.nupkg
-  - path: BuildPackage\artifacts\*.zip
-  
+  - path: '**\bin\$(configuration)\*.nupkg'
+  - path: '**\bin\$(configuration)\*.snupkg'
+  - path: '**\bin\$(configuration)\*.zip'
+
 deploy:
   - provider: NuGet
-    server:
     api_key:
       secure: 3rS8SSsTr0VHNAkG7ayAvic+yEedX8IIKq9QwaNrtLYDzgpyZJjY1mLuBYDZF0Qj
-    skip_symbols: false      
-    symbol_server:    
-    artifact: /.*\.nupkg/
     on:
-        branch: master
-        appveyor_repo_tag: true      
-    
+        APPVEYOR_REPO_TAG: true
+
   - provider: GitHub
-    tag: v3.0.0
-    release: Nesting Contently III - With a Vengeance.
-    description: "Makes it work with Block List in 8.7, and nested Nested Content, if that floats your boat."
-    force_update: true
+    tag: $(APPVEYOR_REPO_TAG_NAME)
     auth_token:
         secure: Otbl8p8qCwciDqJgSWCyN0Arfs5XS1CwiHcK+r0F6uz9Rxt4gzBFvlc3cjPV3NxR
-    artifact: /.*\.zip/     
     on:
-        branch: master
-        appveyor_repo_tag: true     
+        APPVEYOR_REPO_TAG: true
