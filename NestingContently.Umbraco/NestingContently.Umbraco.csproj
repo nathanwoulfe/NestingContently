@@ -19,7 +19,6 @@
 	</Target>  
 	<Target Name="UmbPack" AfterTargets="Pack">
 		<Exec Command="umbpack pack package.xml -v $(Version) -o $(PackageOutputPath)" />
-        <Exec Command="umbpack push $(PackageOutputPath)\Nesting_Contently_$(Version).zip -k $(UmbPackKey) -a current" Condition="$(APPVEYOR_REPO_TAG) == true" />
 	</Target>
 	<ItemGroup>
 		<Content Include="App_Plugins\NestingContently\**" />
