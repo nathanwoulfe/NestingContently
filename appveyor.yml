@@ -10,6 +10,7 @@ environment:
     secure: Y/76f3rkb4wyNyny/hPXqxyFyn1ttDUgCyKHKTEn8qUBP/GtRdZqD+bG5u4nhlccD1700FfRJsZgUp1qjRWKx8H4PsXmaRKklwJJ2fs4P+k=
   
 install:
+  - ps: Install-Product node 12
   - cmd: dotnet tool install --global Umbraco.Tools.Packages
 
 platform: Any CPU
