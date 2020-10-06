@@ -13,13 +13,16 @@
 		<NuspecFile>package.nuspec</NuspecFile>
 		<NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
 	</PropertyGroup>
-	<Target Name="NpmBuild" BeforeTargets="BeforeBuild">
-		<Exec Command="npm run dev" Condition="'$(Configuration)' != 'Release'" />
-		<Exec Command="npm run build" Condition="'$(Configuration)' == 'Release'" />
-	</Target>  
+	<Target Name="NpmBuild" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Release'">
+		<Exec Command="npm run build" />
+	</Target>
+	<Target Name="NpmPublish" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="npm ci --prefer-offline" />
+		<Exec Command="npm run publish" />
+	</Target>
 	<Target Name="UmbPack" AfterTargets="Pack">
 		<Exec Command="umbpack pack package.xml -v $(Version) -o $(PackageOutputPath)" />
-        <Exec Command="umbpack push $(PackageOutputPath)\Nesting_Contently_$(Version).zip -k $(UmbPackKey) -a current" Condition="$(APPVEYOR_REPO_TAG) == true" />
+		<Exec Command="umbpack push $(PackageOutputPath)\Nesting_Contently_$(Version).zip -k $(UmbPackKey) -a current" Condition="$(APPVEYOR_REPO_TAG) == true" />
 	</Target>
 	<ItemGroup>
 		<Content Include="App_Plugins\NestingContently\**" />
