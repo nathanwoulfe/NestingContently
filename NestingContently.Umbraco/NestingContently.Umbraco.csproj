@@ -19,7 +19,7 @@
 	</Target>
 	<Target Name="UmbPack" AfterTargets="Pack">
 		<Exec Command="umbpack pack package.xml -v $(Version) -o $(PackageOutputPath)" />
-    <Exec Command="umbpack push $(PackageOutputPath)\Nesting_Contently_$(Version).zip -k $(UmbPackKey) -a current" />
+        <Exec Command="umbpack push $(PackageOutputPath)\Nesting_Contently_$(Version).zip -k $(UmbPackKey) -a current" Condition="'$(Configuration)' == 'Release'" />
 	</Target>
 	<ItemGroup>
 		<Content Include="App_Plugins\NestingContently\**" />
