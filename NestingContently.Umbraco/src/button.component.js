@@ -1,8 +1,11 @@
-(() => {
-	'use strict';
-
-	function controller($element, $rootScope, locale, strings) {
-
+angular.module('nc.components').component('ncToggle', {
+	transclude: true,
+	bindings: {
+		node: '<',
+		index: '<',
+		type: '@'
+	},
+	controller: ['$element', '$rootScope', 'localizationService', 'ncStrings', function ($element, $rootScope, locale, strings) {
 		let prop = {};
 		let labels = {};
 		let disabled = false;
@@ -47,30 +50,14 @@
 				}
 			}
 		};
-	}
-
-	const template = `
-		<button type="button" class="umb-nested-content__icon umb-nested-content__icon--disable" 
+	}],
+	template:
+		`<button type="button" class="umb-nested-content__icon umb-nested-content__icon--disable" 
 			title="{{ $ctrl.iconTitle }}" 
 			ng-click="$ctrl.toggle(); $event.stopPropagation()">
 			<i class="icon icon-power" aria-hidden="true"></i>
 			<span class="sr-only">
 				{{ $ctrl.iconTitle }}
 			</span>
-		</button>`;
-
-	const component = {
-		transclude: true,
-		bindings: {
-			node: '<',
-			index: '<',
-			type: '@'
-		},
-		controller: controller,
-		template: template
-	};
-
-	controller.$inject = ['$element', '$rootScope', 'localizationService', 'ncStrings'];
-
-	angular.module('nc.components').component('ncToggle', component);
-})();
+		</button>`
+});
