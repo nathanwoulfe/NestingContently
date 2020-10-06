@@ -4,3 +4,4 @@ obj/
 node_modules/
 *.user
 *.min.js
+/dist/App_Plugins/NestingContently

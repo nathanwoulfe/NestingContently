@@ -3,6 +3,11 @@ image: Visual Studio 2019
 cache:
   - packages -> **\packages.config
   - '%APPDATA%\npm-cache'
+  - '%LocalAppData%\NuGet\v3-cache'
+
+environment:
+  UmbPackKey:
+    secure: Y/76f3rkb4wyNyny/hPXqxyFyn1ttDUgCyKHKTEn8qUBP/GtRdZqD+bG5u4nhlccD1700FfRJsZgUp1qjRWKx8H4PsXmaRKklwJJ2fs4P+k=
   
 install:
   - cmd: npm install --global parcel-bundler
@@ -24,16 +29,16 @@ artifacts:
   - path: '**\bin\$(configuration)\*.snupkg'
   - path: '**\bin\$(configuration)\*.zip'
 
-deploy:
-  - provider: NuGet
-    api_key:
-      secure: 3rS8SSsTr0VHNAkG7ayAvic+yEedX8IIKq9QwaNrtLYDzgpyZJjY1mLuBYDZF0Qj
-    on:
-        APPVEYOR_REPO_TAG: true
-
-  - provider: GitHub
-    tag: $(APPVEYOR_REPO_TAG_NAME)
-    auth_token:
-        secure: Otbl8p8qCwciDqJgSWCyN0Arfs5XS1CwiHcK+r0F6uz9Rxt4gzBFvlc3cjPV3NxR
-    on:
-        APPVEYOR_REPO_TAG: true
+#deploy:
+#  - provider: NuGet
+#    api_key:
+#      secure: 3rS8SSsTr0VHNAkG7ayAvic+yEedX8IIKq9QwaNrtLYDzgpyZJjY1mLuBYDZF0Qj
+#    on:
+#        APPVEYOR_REPO_TAG: true
+#
+#  - provider: GitHub
+#    tag: $(APPVEYOR_REPO_TAG_NAME)
+#    auth_token:
+#        secure: Otbl8p8qCwciDqJgSWCyN0Arfs5XS1CwiHcK+r0F6uz9Rxt4gzBFvlc3cjPV3NxR
+#    on:
+#        APPVEYOR_REPO_TAG: true

@@ -15,7 +15,7 @@
 			<name>Nathan Woulfe</name>
 			<website>https://github.com/nathanwoulfe</website>
 		</author>
-		<readme><![CDATA[A property editor for toggling the display state of Nested Content items]]></readme>
+		<readme><![CDATA[A property editor for toggling the display state of Nested Content and Block List items]]></readme>
 	</info>
 	<files>
 		<folder path="App_Plugins/NestingContently" orgPath="App_Plugins/NestingContently" />

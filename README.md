@@ -11,6 +11,11 @@ This editor does exactly that - adds a disable/enable toggle to the Nested Conte
 
 Supports Umbraco v7 (Nesting Contently v1) and v8 (Nesting Contently v2+). Installing the wrong version won't blow up your site, it just won't work.
 
+## Now with extra-juicy Property Value Converters
+Thanks entirely to work by Ronald Barendse, Nesting Contently now ships with three PVCs to manage conversions for the core Nesting Contently editor, and for filtering Nested Content and Block List editors.
+
+While the above says 'ships with' it's much more a case of ships as a supporting package. Install that bundle of awesome via NuGet => `install-package NestingContently.Umbraco.ValueConverters`.
+
 ## Introducing Nesting Contently III - with a vengeance
 Umbraco 8.7 introduces the Block List editor, which takes all the best bits of Nested Content, the Grid, Doc Type Grid Editor and others, mixes in a bit of unicorn snot to stick it all together and creates a new editing paradigm. Only thing missing? A native disable button for blocks.
 
