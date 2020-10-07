@@ -24,9 +24,17 @@ build:
 test: off
 
 artifacts:
-  - path: '**\bin\$(configuration)\*.nupkg'
-  - path: '**\bin\$(configuration)\*.snupkg'
-  - path: '**\bin\$(configuration)\*.zip'
+  - path: 'NestingContently.Umbraco\bin\$(configuration)\*.nupkg'
+    name: NuGet_NestingContently
+  - path: 'NestingContently.Umbraco\bin\$(configuration)\*.zip'
+    name: UmbPack_NestingContently
+
+  - path: 'NestingContently.Umbraco.ValueConverters\bin\$(configuration)\*.nupkg'
+    name: NuGet_NestingContently_ValueConverters
+  - path: 'NestingContently.Umbraco.ValueConverters\bin\$(configuration)\*.snupkg'
+    name: NuGetSymbols_NestingContently_ValueConverters
+  - path: 'NestingContently.Umbraco.ValueConverters\bin\$(configuration)\*.zip'
+    name: UmbPack_NestingContently_ValueConverters
 
 deploy:
   - provider: NuGet
@@ -45,13 +53,11 @@ deploy:
 
 after_deploy:
   - ps: |
-      # Ensure we only push on tagged builds
-      if ($env:APPVEYOR_REPO_TAG -eq "true") {
-        foreach ($artifactName in $artifacts.keys) {
-          $path = $artifacts[$artifactName].path
-          # Only push the NestingContently Umbraco package
-          if ($path -match "Nesting_Contently_[0-9.]+\.zip$") {
-            umbpack push $path -k $env:UmbPackKey -a current
-          }
-        }
+      # Only run this script on tagged builds
+      if ($env:APPVEYOR_REPO_TAG -ne "true") { return }
+
+      # Push NestingContently Umbraco package
+      $path = $artifacts["UmbPack_NestingContently"].path
+      if ($path) {
+        umbpack push $path -k $env:UmbPackKey -a current
       }
