@@ -60,4 +60,10 @@ after_deploy:
       $path = $artifacts["UmbPack_NestingContently"].path
       if ($path) {
         umbpack push $path -k $env:UmbPackKey -a current
+        
+        # Also push NestingContently ValueConverters Umbraco package
+        $path = $artifacts["UmbPack_NestingContently_ValueConverters"].path
+        if ($path) {
+          umbpack push $path -c false -k $env:UmbPackKey -a Nesting_Contently_Value_Converters_*
+        }
       }
