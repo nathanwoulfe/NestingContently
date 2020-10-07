@@ -9,7 +9,7 @@ cache:
   - '%LocalAppData%\NuGet\v3-cache'
 
 install:
-  - cmd: npm install --global parcel-bundler
+  - ps: Install-Product node 12
   - cmd: dotnet tool install --global Umbraco.Tools.Packages
 
 platform: Any CPU
