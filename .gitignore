@@ -1,4 +1,7 @@
+.vs/
+bin/
+obj/
 node_modules/
-dist/
-buildpackage/artifacts/*.zip
-buildpackage/artifacts/*.nupkg
+*.user
+*.min.js
+/dist/App_Plugins/NestingContently

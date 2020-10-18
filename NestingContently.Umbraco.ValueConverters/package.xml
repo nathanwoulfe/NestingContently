@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<umbPackage>
+	<info>
+		<package>
+			<name>Nesting Contently Value Converters</name>
+			<licence url="https://opensource.org/licenses/MIT">MIT</licence>
+			<url>https://github.com/nathanwoulfe/nestingcontently</url>
+			<requirements type="strict">
+				<major>7</major>
+				<minor>7</minor>
+				<patch>0</patch>
+			</requirements>
+		</package>
+		<author>
+			<name>Nathan Woulfe</name>
+			<website>https://github.com/nathanwoulfe</website>
+		</author>
+		<readme><![CDATA[Property Value Converters for the NestingContently and Nested Content editors]]></readme>
+	</info>
+	<files>
+		<file path="bin/Release/net452/NestingContently.Umbraco.ValueConverters.dll" orgPath="bin/NestingContently.Umbraco.ValueConverters.dll" />
+	</files>
+</umbPackage>
