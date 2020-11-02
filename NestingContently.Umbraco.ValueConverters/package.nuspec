@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<description>$description$</description>
+		<authors>$authors$</authors>
+		<projectUrl>$projectUrl$</projectUrl>
+		<license type="expression">$license$</license>
+		<dependencies>
+			<group targetFramework=".NETFramework4.5.2">
+				<dependency id="UmbracoCms.Core" version="[7.7,8)" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\$configuration$\net452\*" target="lib\net452" />
+	</files>
+</package>

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net452</TargetFramework>
+		<Id>NestingContently.Umbraco.ValueConverters</Id>
+		<Version>1.0.0</Version>
+		<Title>Nesting Contently Value Converters</Title>
+		<Description>Property Value Converters for the NestingContently and Nested Content editors</Description>
+		<Authors>Nathan Woulfe</Authors>
+		<PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<EnableDefaultItems>false</EnableDefaultItems>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+		<NuspecFile>package.nuspec</NuspecFile>
+		<NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
+	</PropertyGroup>
+	<Target Name="UmbPack" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="umbpack pack package.xml -v $(Version) -o $(PackageOutputPath)" />
+	</Target>
+	<ItemGroup>
+		<PackageReference Include="UmbracoCms.Core" Version="7.7.0" IncludeAssets="compile" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="*.cs" />
+		<None Include="package.nuspec" />
+		<None Include="package.xml" />
+	</ItemGroup>
+</Project>

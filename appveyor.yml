@@ -1,51 +1,69 @@
-# version format
-version: 1.0.7.{build}
+image: Visual Studio 2019
 
-image: Visual Studio 2017
-
+environment:
+  UmbPackKey:
+    secure: Y/76f3rkb4wyNyny/hPXqxyFyn1ttDUgCyKHKTEn8qUBP/GtRdZqD+bG5u4nhlccD1700FfRJsZgUp1qjRWKx8H4PsXmaRKklwJJ2fs4P+k=
+  
 cache:
-  - c:\projects\nestingcontently\node_modules -> **\packages.json
-  
-# UMBRACO_PACKAGE_PRERELEASE_SUFFIX will only be used for Release builds
-# example UMBRACO_PACKAGE_PRERELEASE_SUFFIX=beta
+  - '%APPDATA%\npm-cache'
+  - '%LocalAppData%\NuGet\v3-cache'
+
 install:
-  - set PATH=C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe;C:\Ruby22\bin;%PATH%
-  - cmd: npm install -g gulp-cli
-  - cmd: set UMBRACO_PACKAGE_MIN_VERSION=7.7.0
-  - cmd: cd BuildPackage
-  - cmd: Build.bat
-  
-branches:
-  only: 
-  - master
+  - ps: Install-Product node 12
+  - cmd: dotnet tool install --global Umbraco.Tools.Packages
+
+platform: Any CPU
+configuration: Release
+
+before_build:
+  - nuget restore
+
+build:
+  parallel: true
 
 test: off
-build: off
 
 artifacts:
-  - path: BuildPackage\artifacts\*.nupkg
-  - path: BuildPackage\artifacts\*.zip
-  
+  - path: 'NestingContently.Umbraco\bin\$(configuration)\*.nupkg'
+    name: NuGet_NestingContently
+  - path: 'NestingContently.Umbraco\bin\$(configuration)\*.zip'
+    name: UmbPack_NestingContently
+
+  - path: 'NestingContently.Umbraco.ValueConverters\bin\$(configuration)\*.nupkg'
+    name: NuGet_NestingContently_ValueConverters
+  - path: 'NestingContently.Umbraco.ValueConverters\bin\$(configuration)\*.snupkg'
+    name: NuGetSymbols_NestingContently_ValueConverters
+  - path: 'NestingContently.Umbraco.ValueConverters\bin\$(configuration)\*.zip'
+    name: UmbPack_NestingContently_ValueConverters
+
 deploy:
   - provider: NuGet
-    server:
     api_key:
-      secure: ORGl5eR/eDby41oG+g9voQ+lmTDIK9SbEzPawNN9yKTvvdKn/XC97dfnOcX7vIOA
-    skip_symbols: false      
-    symbol_server:    
-    artifact: /.*\.nupkg/
+      secure: 3rS8SSsTr0VHNAkG7ayAvic+yEedX8IIKq9QwaNrtLYDzgpyZJjY1mLuBYDZF0Qj
     on:
-        branch: master
-        appveyor_repo_tag: true      
-    
+        APPVEYOR_REPO_TAG: true
+
   - provider: GitHub
-    tag: v1.0.7
-    release: Release 1.0.7
-    description: "CSS state for active button"
-    force_update: true
+    tag: $(APPVEYOR_REPO_TAG_NAME)
+    description: ''
     auth_token:
         secure: Otbl8p8qCwciDqJgSWCyN0Arfs5XS1CwiHcK+r0F6uz9Rxt4gzBFvlc3cjPV3NxR
-    artifact: /.*\.zip/     
     on:
-        branch: master
-        appveyor_repo_tag: true     
+        APPVEYOR_REPO_TAG: true
+
+after_deploy:
+  - ps: |
+      # Only run this script on tagged builds
+      if ($env:APPVEYOR_REPO_TAG -ne "true") { return }
+
+      # Push NestingContently Umbraco package
+      $path = $artifacts["UmbPack_NestingContently"].path
+      if ($path) {
+        umbpack push $path -c false -k $env:UmbPackKey -a Nesting_Contently_1.*
+        
+        # Also push NestingContently ValueConverters Umbraco package
+        $path = $artifacts["UmbPack_NestingContently_ValueConverters"].path
+        if ($path) {
+          umbpack push $path -c false -k $env:UmbPackKey -a Nesting_Contently_Value_Converters_1.*
+        }
+      }
