@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<umbPackage>
+	<info>
+		<package>
+			<name>Nesting Contently</name>
+			<licence url="https://opensource.org/licenses/MIT">MIT</licence>
+			<url>https://github.com/nathanwoulfe/nestingcontently</url>
+			<requirements type="strict">
+				<major>8</major>
+				<minor>0</minor>
+				<patch>0</patch>
+			</requirements>
+		</package>
+		<author>
+			<name>Nathan Woulfe</name>
+			<website>https://github.com/nathanwoulfe</website>
+		</author>
+		<readme><![CDATA[A property editor for toggling the display state of Nested Content]]></readme>
+	</info>
+	<files>
+		<folder path="App_Plugins/NestingContently" orgPath="App_Plugins/NestingContently" />
+	</files>
+</umbPackage>

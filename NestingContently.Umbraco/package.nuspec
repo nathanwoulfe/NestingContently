@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<description>$description$</description>
+		<authors>$authors$</authors>
+		<projectUrl>$projectUrl$</projectUrl>
+		<license type="expression">$license$</license>
+		<dependencies>
+			<dependency id="UmbracoCms.Core" version="[8,9)" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="App_Plugins\NestingContently\**" target="content\App_Plugins\NestingContently" />
+	</files>
+</package>
