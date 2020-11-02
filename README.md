@@ -11,9 +11,9 @@ This editor does exactly that - adds a disable/enable toggle to the Nested Conte
 
 ## Support
 
-Umbraco 7 => Nesting Contently v1
-Umbraco 8.1-8.6 => Nesting Contently v2
-Umbraco 8.7+ => Nesting Contently III
+- Umbraco 7 => Nesting Contently v1
+- Umbraco 8.1-8.6 => Nesting Contently v2
+- Umbraco 8.7+ => Nesting Contently III
 
 Installing the wrong version won't blow up your site, it just won't work. Just kidding, it might blow up your site. Try it and let me know.
 
