@@ -3,6 +3,7 @@
 	<info>
 		<package>
 			<name>$title$</name>
+			<version>$version$</version>
 			<licence url="https://opensource.org/licenses/$license$">$license$</licence>
 			<url>$projectUrl$</url>
 			<requirements type="strict">

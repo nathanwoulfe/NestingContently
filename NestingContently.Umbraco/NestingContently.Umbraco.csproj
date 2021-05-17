@@ -21,7 +21,7 @@
 		<Exec Command="npm run publish" />
 	</Target>
 	<Target Name="UmbPack" AfterTargets="Pack">
-		<Exec Command="umbpack pack package.xml -v $(Version) -p &quot;$(NuspecProperties)&quot; -o $(PackageOutputPath)" />
+		<Exec Command="umbpack pack package.xml -p &quot;$(NuspecProperties)&quot; -o $(PackageOutputPath)" />
 	</Target>
 	<ItemGroup>
 		<Content Include="App_Plugins\NestingContently\**" />
