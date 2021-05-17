@@ -2,9 +2,9 @@
 <umbPackage>
 	<info>
 		<package>
-			<name>Nesting Contently Value Converters</name>
-			<licence url="https://opensource.org/licenses/MIT">MIT</licence>
-			<url>https://github.com/nathanwoulfe/nestingcontently</url>
+			<name>$title$</name>
+			<licence url="https://opensource.org/licenses/$license$">$license$</licence>
+			<url>$projectUrl$</url>
 			<requirements type="strict">
 				<major>8</major>
 				<minor>7</minor>
@@ -12,10 +12,10 @@
 			</requirements>
 		</package>
 		<author>
-			<name>Nathan Woulfe</name>
+			<name>$authors$</name>
 			<website>https://github.com/nathanwoulfe</website>
 		</author>
-		<readme><![CDATA[Property Value Converters for the NestingContently, Nested Content and Block List editors]]></readme>
+		<readme><![CDATA[$description$]]></readme>
 	</info>
 	<files>
 		<file path="bin/Release/net472/NestingContently.Umbraco.ValueConverters.dll" orgPath="bin/NestingContently.Umbraco.ValueConverters.dll" />

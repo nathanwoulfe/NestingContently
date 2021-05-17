@@ -15,8 +15,8 @@
 		<NuspecFile>package.nuspec</NuspecFile>
 		<NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
 	</PropertyGroup>
-	<Target Name="UmbPack" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
-		<Exec Command="umbpack pack package.xml -v $(Version) -o $(PackageOutputPath)" />
+	<Target Name="UmbPack" AfterTargets="Pack">
+		<Exec Command="umbpack pack package.xml -v $(Version) -p &quot;$(NuspecProperties)&quot; -o $(PackageOutputPath)" />
 	</Target>
 	<ItemGroup>
 		<PackageReference Include="UmbracoCms.Core" Version="8.7.0" IncludeAssets="compile" />
