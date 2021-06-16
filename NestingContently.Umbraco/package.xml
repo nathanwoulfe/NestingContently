@@ -2,9 +2,10 @@
 <umbPackage>
 	<info>
 		<package>
-			<name>Nesting Contently</name>
-			<licence url="https://opensource.org/licenses/MIT">MIT</licence>
-			<url>https://github.com/nathanwoulfe/nestingcontently</url>
+			<name>$title$</name>
+			<version>$version$</version>
+			<licence url="https://opensource.org/licenses/$license$">$license$</licence>
+			<url>$projectUrl$</url>
 			<requirements type="strict">
 				<major>8</major>
 				<minor>0</minor>
@@ -12,10 +13,10 @@
 			</requirements>
 		</package>
 		<author>
-			<name>Nathan Woulfe</name>
+			<name>$authors$</name>
 			<website>https://github.com/nathanwoulfe</website>
 		</author>
-		<readme><![CDATA[A property editor for toggling the display state of Nested Content and Block List items]]></readme>
+		<readme><![CDATA[$description$]]></readme>
 	</info>
 	<files>
 		<folder path="App_Plugins/NestingContently" orgPath="App_Plugins/NestingContently" />
