@@ -1,14 +1,14 @@
 ﻿using System.Linq;
-using Umbraco.Core.Logging;
-using Umbraco.Core.Models.Blocks;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Core.PropertyEditors;
-using Umbraco.Web;
-using Umbraco.Web.PropertyEditors.ValueConverters;
+using Umbraco.Cms.Core.Logging;
+using Umbraco.Cms.Core.Models.Blocks;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+using Umbraco.Extensions;
 
 namespace NestingContently.Umbraco.ValueConverters
 {
-	public class BlockListPropertyValueConverter : global::Umbraco.Web.PropertyEditors.ValueConverters.BlockListPropertyValueConverter
+    public class BlockListPropertyValueConverter : global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.BlockListPropertyValueConverter
 	{
 		public BlockListPropertyValueConverter(IProfilingLogger proflog, BlockEditorConverter blockConverter)
 			: base(proflog, blockConverter)

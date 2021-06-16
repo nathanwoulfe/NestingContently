@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Linq;
-using Umbraco.Core.Logging;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Core.PropertyEditors;
-using Umbraco.Web;
-using Umbraco.Web.PublishedCache;
+using Umbraco.Cms.Core.Logging;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Extensions;
 
 namespace NestingContently.Umbraco.ValueConverters
 {
-	public class NestedContentManyValueConverter : global::Umbraco.Web.PropertyEditors.ValueConverters.NestedContentManyValueConverter
+    public class NestedContentManyValueConverter : global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.NestedContentManyValueConverter
 	{
 		public NestedContentManyValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog)
 			: base(publishedSnapshotAccessor, publishedModelFactory, proflog)

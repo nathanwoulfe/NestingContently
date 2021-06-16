@@ -9,7 +9,7 @@
 		<projectUrl>$projectUrl$</projectUrl>
 		<license type="expression">$license$</license>
 		<dependencies>
-			<dependency id="UmbracoCms.Core" version="[8,9)" />
+			<dependency id="Umbraco.Cms.Core" version="9.0.0-beta003" />
 		</dependencies>
 	</metadata>
 	<files>

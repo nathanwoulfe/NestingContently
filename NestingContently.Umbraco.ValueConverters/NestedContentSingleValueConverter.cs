@@ -1,12 +1,12 @@
-﻿using Umbraco.Core.Logging;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Core.PropertyEditors;
-using Umbraco.Web;
-using Umbraco.Web.PublishedCache;
+﻿using Umbraco.Cms.Core.Logging;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Extensions;
 
 namespace NestingContently.Umbraco.ValueConverters
 {
-	public class NestedContentSingleValueConverter : global::Umbraco.Web.PropertyEditors.ValueConverters.NestedContentSingleValueConverter
+	public class NestedContentSingleValueConverter : global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.NestedContentSingleValueConverter
 	{
 		public NestedContentSingleValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog)
 			: base(publishedSnapshotAccessor, publishedModelFactory, proflog)
