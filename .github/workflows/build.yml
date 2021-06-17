@@ -21,9 +21,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install and publish    
-    - run: npm ci --prefer-offline
-    - run: npm run publish
+    - name: Install NPM dependencies
+      run: npm ci --prefer-offline
+    - name: Publish
+      run: npm run publish
       
   converters:
     name: Build ValueConverters
