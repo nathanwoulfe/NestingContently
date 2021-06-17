@@ -23,6 +23,6 @@ jobs:
     - name: Publish
       run: |
         mkdir __out
-        dotnet pack -c Release -o __out --no-restore
+        dotnet pack -c Release -o __out --no-restore -properties NoWarn=NU5128
         dotnet nuget push "./__out/*.nupkg" --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}}
         rm -rf __out
