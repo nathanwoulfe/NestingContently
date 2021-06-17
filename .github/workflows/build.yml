@@ -7,8 +7,9 @@ on:
     branches: [ v9/dev ]
 
 jobs:
-  build:
 
+  converters:
+    name: Build ValueConverters
     runs-on: ubuntu-latest
 
     steps:
@@ -19,5 +20,8 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - uses: actions/setup-node@v1
+    - name: Install NPM dependencies
+      run: npm install
     - name: Build
       run: dotnet build --no-restore
