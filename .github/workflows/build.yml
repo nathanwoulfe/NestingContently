@@ -8,8 +8,7 @@ on:
 
 jobs:
 
-  converters:
-    name: Build ValueConverters
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,3 +21,5 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Pack
+      run: dotnet pack
