@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v9*'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Publish
+      run: |
+          mkdir __out
+          dotnet pack -c Release -o __out --no-restore
+          dotnet nuget push "./__out/*.nupkg" --skip-duplicate --no-symbols true --api-key ${{secrets.NUGET_TOKEN}}
+          rm -rf __out
