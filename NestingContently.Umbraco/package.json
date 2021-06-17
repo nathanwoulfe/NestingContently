@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"build": "rollup src/entry.js --file App_Plugins/NestingContently/backoffice/nesting-contently.min.js --format iife --plugin babel={babelHelpers:'bundled'}",
-		"publish": "rollup src/entry.js --file App_Plugins/NestingContently/backoffice/nesting-contently.min.js --format iife --plugin babel={babelHelpers:'bundled'} --plugin terser"
+		"build": "rollup src/entry.js -o App_Plugins/NestingContently/backoffice/nesting-contently.min.js -f iife -p babel",
+		"publish": "rollup src/entry.js -o App_Plugins/NestingContently/backoffice/nesting-contently.min.js -f iife -p babel -p terser"
 	},
 	"babel": {
 		"presets": [
