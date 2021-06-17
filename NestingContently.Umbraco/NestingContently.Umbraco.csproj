@@ -14,11 +14,11 @@
 		<NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
 	</PropertyGroup>
 	<Target Name="NpmBuild" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Release'">
-    <Exec Command="npm ci --prefer-offline" />
+    <Exec Command="npm install" />
 		<Exec Command="npm run build" />
 	</Target>
 	<Target Name="NpmPublish" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release'">
-		<Exec Command="npm ci --prefer-offline" />
+		<Exec Command="npm install" />
 		<Exec Command="npm run publish" />
 	</Target>
 	<ItemGroup>
