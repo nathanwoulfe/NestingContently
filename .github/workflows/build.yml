@@ -7,17 +7,7 @@ on:
     branches: [ v9/dev ]
 
 jobs:
-  web:
-    name: NPM/Node
-    runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-    - name: Install NPM dependencies
-      run: npm install --prefer-offline
-      
   converters:
     name: Build ValueConverters
     runs-on: ubuntu-latest
