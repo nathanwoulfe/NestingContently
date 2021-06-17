@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<Id>NestingContently.Umbraco</Id>
-		<Version>9.0.0</Version>
+		<Version>9.0.0-beta</Version>
 		<Title>Nesting Contently</Title>
 		<Description>A property editor for toggling the display state of Nested Content and Block List items</Description>
 		<Authors>Nathan Woulfe</Authors>
