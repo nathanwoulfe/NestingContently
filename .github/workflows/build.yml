@@ -8,7 +8,7 @@ on:
 
 jobs:
   web:
-    name: Build app_plugin
+    name: NPM/Node
     runs-on: ubuntu-latest
 
     steps:
@@ -17,8 +17,6 @@ jobs:
       uses: actions/setup-node@v1
     - name: Install NPM dependencies
       run: npm install --prefer-offline
-    - name: Publish
-      run: npm run publish
       
   converters:
     name: Build ValueConverters
