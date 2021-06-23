@@ -1,4 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/5d665tl2a8x082be?svg=true)](https://ci.appveyor.com/project/nathanwoulfe/nestingcontently)
+[![Build](https://github.com/nathanwoulfe/NestingContently/actions/workflows/build.yml/badge.svg)](https://github.com/nathanwoulfe/NestingContently/actions/workflows/build.yml)
+[![Release](https://github.com/nathanwoulfe/NestingContently/actions/workflows/release.yml/badge.svg)](https://github.com/nathanwoulfe/NestingContently/actions/workflows/release.yml)
 [![NuGet release](https://img.shields.io/nuget/dt/NestingContently.Umbraco.svg)](https://www.nuget.org/packages/NestingContently.Umbraco)
 
 # NestingContently
