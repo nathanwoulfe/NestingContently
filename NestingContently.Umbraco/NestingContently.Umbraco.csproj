@@ -9,8 +9,8 @@
 		<PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<EnableDefaultItems>false</EnableDefaultItems>
-		<NuspecFile>package.nuspec</NuspecFile>
-		<NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
+    <NuspecFile>package.nuspec</NuspecFile>
+    <NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
 	</PropertyGroup>
 	<Target Name="NpmBuild" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Release'">
     <Exec Command="npm install" />

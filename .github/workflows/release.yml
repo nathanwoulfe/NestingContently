@@ -24,5 +24,5 @@ jobs:
       run: |
         mkdir __out
         dotnet pack -c Release -o __out --no-restore
-        dotnet nuget push "./__out/*.nupkg" --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}}
-        rmdir /s __out
+        dotnet nuget push "./__out/*.nupkg" --skip-duplicate -k ${{secrets.NUGET_TOKEN}}
+        rm -r -force __out
