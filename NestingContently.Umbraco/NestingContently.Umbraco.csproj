@@ -9,7 +9,6 @@
 		<PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<EnableDefaultItems>false</EnableDefaultItems>
-		<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
 		<NuspecFile>package.nuspec</NuspecFile>
 		<NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
 	</PropertyGroup>
