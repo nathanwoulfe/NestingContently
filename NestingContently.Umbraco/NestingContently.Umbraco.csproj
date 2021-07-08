@@ -1,32 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
-		<Id>NestingContently.Umbraco</Id>
-		<Version>9.0.0-beta</Version>
-		<Title>Nesting Contently</Title>
-		<Description>A property editor for toggling the display state of Nested Content and Block List items</Description>
-		<Authors>Nathan Woulfe</Authors>
-		<PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<EnableDefaultItems>false</EnableDefaultItems>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Id>NestingContently.Umbraco</Id>
+    <Version>9.0.0-rc</Version>
+    <Title>Nesting Contently</Title>
+    <Description>A property editor for toggling the display state of Nested Content and Block List items</Description>
+    <Authors>Nathan Woulfe</Authors>
+    <PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <EnableDefaultItems>false</EnableDefaultItems>
     <NuspecFile>package.nuspec</NuspecFile>
     <NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
-	</PropertyGroup>
-	<Target Name="NpmBuild" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Release'">
+  </PropertyGroup>
+  <Target Name="NpmBuild" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Release'">
     <Exec Command="npm install" />
-		<Exec Command="npm run build" />
-	</Target>
-	<Target Name="NpmPublish" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release'">
-		<Exec Command="npm install" />
-		<Exec Command="npm run publish" />
-	</Target>
-	<ItemGroup>
-		<Content Include="App_Plugins\NestingContently\**" />
-		<None Include="src\**" />
-		<None Include="package.json" />
-		<None Include="package-lock.json">
-			<DependentUpon>package.json</DependentUpon>
-		</None>
-		<None Include="package.nuspec" />
-	</ItemGroup>
+    <Exec Command="npm run build" />
+  </Target>
+  <Target Name="NpmPublish" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="npm install" />
+    <Exec Command="npm run publish" />
+  </Target>
+  <ItemGroup>
+    <Content Include="App_Plugins\NestingContently\**\*.*">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <None Include="build\**\*.*">
+      <Pack>True</Pack>
+      <PackagePath>buildTransitive</PackagePath>
+    </None>
+    <Content Include="package.json" />
+    <None Include="package.nuspec" />
+    <None Include="src\*.*" />
+  </ItemGroup>
 </Project>

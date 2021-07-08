@@ -14,7 +14,8 @@
       </group>
 		</dependencies>
 	</metadata>
-	<files>
-		<file src="App_Plugins\NestingContently\**" target="content\App_Plugins\NestingContently" />
-	</files>
+  <files>
+    <file src="build\**\*.*" target="buildTransitive" />
+    <file src="App_Plugins\NestingContently\**\*.*" target="content\App_Plugins\NestingContently" />
+  </files>
 </package>

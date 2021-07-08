@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<Id>NestingContently.Umbraco.ValueConverters</Id>
-		<Version>9.0.0-beta</Version>
+		<Version>9.0.0-rc</Version>
 		<Title>Nesting Contently Value Converters</Title>
 		<Description>Property Value Converters for the NestingContently, Nested Content and Block List editors</Description>
 		<Authors>Nathan Woulfe</Authors>
