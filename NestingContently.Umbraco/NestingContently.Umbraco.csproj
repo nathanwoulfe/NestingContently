@@ -2,15 +2,16 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Id>NestingContently.Umbraco</Id>
-    <Version>9.0.0-rc</Version>
+    <Version>9.0.0-rc001</Version>
     <Title>Nesting Contently</Title>
     <Description>A property editor for toggling the display state of Nested Content and Block List items</Description>
     <Authors>Nathan Woulfe</Authors>
     <PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nathanwoulfe/nestingcontently</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <EnableDefaultItems>false</EnableDefaultItems>
-    <NuspecFile>package.nuspec</NuspecFile>
-    <NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
+    <PackageTag>Umbraco;NestedContent;BlockList;</PackageTag>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
   <Target Name="NpmBuild" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Release'">
     <Exec Command="npm install" />
@@ -20,6 +21,10 @@
     <Exec Command="npm install" />
     <Exec Command="npm run publish" />
   </Target>
+    <ItemGroup>
+        <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0-rc001" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-rc001" />
+    </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\NestingContently\**\*.*">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -29,8 +34,12 @@
       <Pack>True</Pack>
       <PackagePath>buildTransitive</PackagePath>
     </None>
-    <Content Include="package.json" />
-    <None Include="package.nuspec" />
+    <None Include="package.json" />
     <None Include="src\*.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="node_modules\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="node_modules\**" />
   </ItemGroup>
 </Project>

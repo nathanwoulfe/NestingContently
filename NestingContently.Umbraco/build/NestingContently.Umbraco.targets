@@ -19,7 +19,7 @@
         <ItemGroup>
             <NestingContentlyPackageDir Include="$(MSBuildProjectDirectory)\App_Plugins\NestingContently\" />
         </ItemGroup>
-        <Message Text="Clear old NestingContently Package data"  Importance="high" />
+        <Message Text="Clear old NestingContently data"  Importance="high" />
         <RemoveDir Directories="@(NestingContentlyPackageDir)"  />
     </Target>
 

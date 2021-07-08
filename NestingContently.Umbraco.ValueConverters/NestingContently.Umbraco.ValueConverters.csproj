@@ -5,20 +5,17 @@
 		<Version>9.0.0-rc</Version>
 		<Title>Nesting Contently Value Converters</Title>
 		<Description>Property Value Converters for the NestingContently, Nested Content and Block List editors</Description>
-		<Authors>Nathan Woulfe</Authors>
-		<PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<EnableDefaultItems>false</EnableDefaultItems>
+    <Authors>Nathan Woulfe</Authors>
+    <PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nathanwoulfe/nestingcontently</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTag>Umbraco;NestedContent;BlockList;</PackageTag>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<NuspecFile>package.nuspec</NuspecFile>
-		<NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
-	</PropertyGroup>
-	<ItemGroup>
-		<Compile Include="*.cs" />
-		<None Include="package.nuspec" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-rc001" />
-	</ItemGroup>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0-rc001" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-rc001" />
+  </ItemGroup>
 </Project>
