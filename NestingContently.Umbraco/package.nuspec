@@ -10,7 +10,7 @@
 		<license type="expression">$license$</license>
 		<dependencies>
       <group targetFramework="net5.0">
-        <dependency id="Umbraco.Cms.Core" version="9.0.0-beta003" />
+        <dependency id="Umbraco.Cms.Core" version="9.0.0-rc001" />
       </group>
 		</dependencies>
 	</metadata>

@@ -19,6 +19,6 @@
 		<None Include="package.nuspec" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-beta003" />
+	  <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-rc001" />
 	</ItemGroup>
 </Project>
