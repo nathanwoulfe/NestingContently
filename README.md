@@ -12,6 +12,8 @@ This editor does exactly that - adds a disable/enable toggle to the Nested Conte
 
 Supports Umbraco v7 (Nesting Contently v1) and v8 (Nesting Contently v2+). Installing the wrong version won't blow up your site, it just won't work.
 
+**Umbraco 9?** Sure thing fam - v9-compatible version is available now
+
 ## Now with extra-juicy Property Value Converters
 Thanks entirely to work by Ronald Barendse, Nesting Contently now ships with three PVCs to manage conversions for the core Nesting Contently editor, and for filtering Nested Content and Block List editors.
 
