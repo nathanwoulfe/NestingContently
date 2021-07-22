@@ -1,16 +1,26 @@
 ﻿using System.Collections;
 using System.Linq;
+#if NET472
+using Umbraco.Web.PropertyEditors.ValueConverters;
+using Umbraco.Web.PublishedCache;
+using Umbraco.Core.Logging;
+using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Core.PropertyEditors;
+using Umbraco.Web;
+#else
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
 using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Extensions;
+#endif
 
 namespace NestingContently.Umbraco.ValueConverters
 {
-    public class NestedContentManyValueConverter : global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.NestedContentManyValueConverter
+    public class NC_NestedContentManyValueConverter : NestedContentManyValueConverter
 	{
-		public NestedContentManyValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog)
+		public NC_NestedContentManyValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog)
 			: base(publishedSnapshotAccessor, publishedModelFactory, proflog)
 		{ }
 

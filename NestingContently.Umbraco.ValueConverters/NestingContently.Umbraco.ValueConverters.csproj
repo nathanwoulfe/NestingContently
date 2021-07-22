@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net472;net5.0</TargetFrameworks>
 		<Id>NestingContently.Umbraco.ValueConverters</Id>
-		<Version>9.0.0-rc001</Version>
+		<Version>4.0.0-rc001</Version>
 		<Title>Nesting Contently Value Converters</Title>
 		<Description>Property Value Converters for the NestingContently, Nested Content and Block List editors</Description>
     <Authors>Nathan Woulfe</Authors>
@@ -14,7 +14,11 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-  <ItemGroup>
+      <ItemGroup Condition="$(TargetFramework) == 'net472'">
+		<PackageReference Include="UmbracoCms.Core" Version="8.7.0" />
+		<PackageReference Include="UmbracoCms.Web" Version="8.7.0" />
+	</ItemGroup>
+	<ItemGroup Condition="$(TargetFramework) == 'net5.0'">
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0-rc001" />
     <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-rc001" />
   </ItemGroup>

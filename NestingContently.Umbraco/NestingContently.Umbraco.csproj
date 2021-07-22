@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>net472;net5.0</TargetFrameworks>
     <Id>NestingContently.Umbraco</Id>
-    <Version>9.0.0-rc001</Version>
+    <Version>4.0.0-rc001</Version>
     <Title>Nesting Contently</Title>
     <Description>A property editor for toggling the display state of Nested Content and Block List items</Description>
     <Authors>Nathan Woulfe</Authors>
@@ -21,12 +21,16 @@
     <Exec Command="npm install" />
     <Exec Command="npm run publish" />
   </Target>
-    <ItemGroup>
+    <ItemGroup Condition="$(TargetFramework) == 'net472'">
+		<PackageReference Include="UmbracoCms.Core" Version="8.7.0" />
+		<PackageReference Include="UmbracoCms.Web" Version="8.7.0" />
+	</ItemGroup>
+	<ItemGroup Condition="$(TargetFramework) == 'net5.0'">
         <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0-rc001" />
         <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-rc001" />
     </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\NestingContently\**\*.*">
+    <Content Include="App_Plugins\**\*.*">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
