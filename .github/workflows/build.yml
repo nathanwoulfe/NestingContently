@@ -21,12 +21,11 @@ jobs:
       run: dotnet restore
     - name: Copy lucene analyser
       run: |
-        $files = Get-ChildItem C:\Users\runneradmin\.nuget\packages\lucene.net\4.8.0-beta00014\analyzers\dotnet\cs
+        $src = C:\Users\runneradmin\.nuget\packages\lucene.net\4.8.0-beta00014\analyzers\dotnet\cs
         $dest = C:\Users\runneradmin\.nuget\packages\lucene.net\3.0.3\analyzers\dotnet\cs
-
         if (!(Test-Path -Path $dest)) {
             New-Item -ItemType directory -Path $dest
         }
-        foreach ($dll in $files) { Copy-Item -Path $dll -Destination $dest }
+        Copy-Item -Path $src -Filter *.dll -Destination $dest -Recurse
     - name: Build
       run: dotnet build --no-restore
