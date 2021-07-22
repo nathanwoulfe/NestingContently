@@ -48,7 +48,7 @@ Toggling the button modifies the parent's parent's parent's (maybe another paren
 
 There's no need to touch any core files, so no worries with upgrade paths being borked. Some of the implementation is a little bit dirty, but this is essentially a hack anyway, so sue me (don't though).
 
-### Extra setup bit
+### Extra setup bit if you don't want to install the property converters package (if not, why not?)
 
 The above bits said, Models Builder doesn't play nice with Nesting Contently given the absence of a property value converter. Rather than adding an assembly to the package simply to deliver 8 lines of code, it's included below instead. 
 
