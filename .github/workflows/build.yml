@@ -21,12 +21,9 @@ jobs:
       run: dotnet restore
     - name: Copy lucene analyser
       run: |
-        $src = C:\Users\runneradmin\.nuget\packages\lucene.net\4.8.0-beta00014\analyzers\dotnet\cs
-        $dest = C:\Users\runneradmin\.nuget\packages\lucene.net\3.0.3\analyzers\dotnet\cs
-
-        if (!(Test-Path -Path $dest)) {
-            New-Item -ItemType directory -Path $dest
+        if (!(Test-Path -Path C:\Users\runneradmin\.nuget\packages\lucene.net\3.0.3\analyzers\dotnet\cs)) {
+            New-Item -ItemType directory -Path C:\Users\runneradmin\.nuget\packages\lucene.net\3.0.3\analyzers\dotnet\cs
         }
-        Copy-Item -Path $src\*.dll -Destination $dest
+        Copy-Item -Path C:\Users\runneradmin\.nuget\packages\lucene.net\4.8.0-beta00014\analyzers\dotnet\cs\*.dll -Destination C:\Users\runneradmin\.nuget\packages\lucene.net\3.0.3\analyzers\dotnet\cs
     - name: Build
       run: dotnet build --no-restore
