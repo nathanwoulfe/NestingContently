@@ -21,6 +21,8 @@ jobs:
       run: dotnet restore
     - name: Copy lucene analyser
       run: |
+        Get-ChildItem C:\Users\runneradmin\.nuget\packages
+
         $src = C:\Users\runneradmin\.nuget\packages\lucene.net\4.8.0-beta00014\analyzers\dotnet\cs\Lucene.Net.CodeAnalysis.CSharp.dll
         $dest = C:\Users\runneradmin\.nuget\packages\lucene.net\3.0.3\analyzers\dotnet\cs\
         if (!(Test-Path -Path $dest)) {
