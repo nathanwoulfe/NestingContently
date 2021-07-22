@@ -19,5 +19,9 @@ jobs:
         dotnet-version: 5.0.x 
     - name: Restore dependencies
       run: dotnet restore
+    - name: Copy lucene analyser
+      run: |
+        Copy-Item -Path C:\Users\runneradmin\.nuget\packages\lucene.net\4.8.0-beta00014\analyzers\dotnet\cs\Lucene.Net.CodeAnalysis.CSharp.dll
+        -Destination C:\Users\runneradmin\.nuget\packages\lucene.net\3.0.3\analyzers\dotnet\cs\
     - name: Build
       run: dotnet build --no-restore
