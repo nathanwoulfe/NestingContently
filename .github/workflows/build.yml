@@ -2,9 +2,14 @@ name: Build
 
 on:
   push:
-    branches: [ v9/dev ]
+    tags: 
+      - v4*
+    branches: [ v4/dev ]
   pull_request:
-    branches: [ v9/dev ]
+    branches: [ v4/dev ]    
+
+env:
+  RELEASE: ${{ github.ref == 'refs/tags/v4*' && github.event_name == 'push' }}
 
 jobs:
 
@@ -17,6 +22,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x 
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
     - name: Restore dependencies
       run: dotnet restore
     - name: Copy lucene analyser
@@ -28,10 +35,16 @@ jobs:
             New-Item -ItemType directory -Path $dest
         }
         Copy-Item -Path $src\*.dll -Destination $dest
-    - name: Pack
+    - name: Create output dir
+      run: mkdir __out
+    - name: Pack - DEBUG
+      if: ${{ env.RELEASE == false }}
+      run: dotnet pack -c Debug -o __out --no-restore
+    - name: Pack and push - RELEASE
+      if: ${{ env.RELEASE == true }}
       run: |
-        mkdir __out
-        dotnet pack -c Debug -o __out --no-restore
+        dotnet pack -c Release -o __out --no-restore
+        ##dotnet nuget push "**/__out/*.nupkg" -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${{secrets.NUGET_TOKEN}}
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
