@@ -8,16 +8,13 @@ on:
       - v4/dev
   pull_request:
     branches: 
-      - v4/dev    
-
-env:
-  RELEASE: ${{ github.ref == 'refs/tags/v4.*' && github.event_name == 'push' }}
+      - v4/dev   
 
 jobs:
-
   build:
     runs-on: windows-latest
-
+    env:
+      RELEASE: ${{ github.ref == 'refs/tags/v4.*' && github.event_name == 'push' }}
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
