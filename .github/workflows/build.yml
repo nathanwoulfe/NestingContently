@@ -1,5 +1,8 @@
 name: Build
 
+env:
+  BUILD_DIR: __out
+
 on:
   push:
     branches: [ v9/dev ]
@@ -30,3 +33,14 @@ jobs:
         Copy-Item -Path $src\*.dll -Destination $dest
     - name: Build
       run: dotnet build --no-restore
+    - name: Pack
+      run: |
+        mkdir env.BUILD_DIR
+        dotnet pack -c Debug -o env.BUILD_DIR --no-restore
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        path: env.BUILD_DIR
+    - name: Clean up
+      run: rm -r -force env.BUILD_DIR
+        
