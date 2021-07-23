@@ -13,9 +13,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    env:
-      RELEASE: ${{ github.ref == 'refs/tags/v4.*' && github.event_name == 'push' }}
     steps:
+    - run: echo "${env:RELEASE}"
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -37,10 +36,10 @@ jobs:
     - name: Create output dir
       run: mkdir __out
     - name: Pack - DEBUG
-      if: ${{ env.RELEASE == false }}
+      if: ${{ github.ref != 'refs/tags/v4.*' }}
       run: dotnet pack -c Debug -o __out --no-restore
     - name: Pack and push - RELEASE
-      if: ${{ env.RELEASE == true }}
+      if: ${{ github.ref == 'refs/tags/v4.*' }}
       run: |
         dotnet pack -c Release -o __out --no-restore
         ##dotnet nuget push "**/__out/*.nupkg" -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${{secrets.NUGET_TOKEN}}
