@@ -14,7 +14,6 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - run: echo "${env:RELEASE}"
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
