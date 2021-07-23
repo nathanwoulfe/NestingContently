@@ -3,13 +3,15 @@ name: Build
 on:
   push:
     tags: 
-      - v4*
-    branches: [ v4/dev ]
+      - v4.*
+    branches: 
+      - v4/dev
   pull_request:
-    branches: [ v4/dev ]    
+    branches: 
+      - v4/dev    
 
 env:
-  RELEASE: ${{ github.ref == 'refs/tags/v4*' && github.event_name == 'push' }}
+  RELEASE: ${{ github.ref == 'refs/tags/v4.*' && github.event_name == 'push' }}
 
 jobs:
 
