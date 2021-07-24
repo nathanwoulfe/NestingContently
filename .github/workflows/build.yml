@@ -41,13 +41,13 @@ jobs:
     - name: Build - DEBUG
       if: ${{ github.ref != 'refs/tags/v4.*' }}
       run: |
+        cd ./NestingContently.Umbraco
         npm run build
-        cd ../
     - name: Build - RELEASE
       if: ${{ github.ref == 'refs/tags/v4.*' }}
       run: |
+       cd ./NestingContently.Umbraco
        npm run prod
-       cd ../
     - name: Pack - DEBUG
       if: ${{ github.ref != 'refs/tags/v4.*' }}
       run: dotnet pack -c Debug -o __out --no-restore
