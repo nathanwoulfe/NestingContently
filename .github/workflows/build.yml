@@ -36,7 +36,7 @@ jobs:
       run: mkdir __out
     - name: NPM install
       run: |
-        cd ../NestingContently.Umbraco
+        cd ./NestingContently.Umbraco
         npm install
     - name: Build - DEBUG
       if: ${{ github.ref != 'refs/tags/v4.*' }}
