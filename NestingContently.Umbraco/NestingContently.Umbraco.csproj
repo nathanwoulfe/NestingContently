@@ -13,15 +13,7 @@
     <PackageTag>Umbraco;NestedContent;BlockList;</PackageTag>
     <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
-  <Target Name="NpmBuild" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Release'">
-    <Exec Command="npm install" />
-    <Exec Command="npm run build" />
-  </Target>
-  <Target Name="NpmPublish" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release'">
-    <Exec Command="npm install" />
-    <Exec Command="npm run publish" />
-  </Target>
-    <ItemGroup Condition="$(TargetFramework) == 'net472'">
+  <ItemGroup Condition="$(TargetFramework) == 'net472'">
 		<PackageReference Include="UmbracoCms.Core" Version="8.7.0" />
 		<PackageReference Include="UmbracoCms.Web" Version="8.7.0" />
 	</ItemGroup>
