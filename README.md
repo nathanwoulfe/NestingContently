@@ -10,11 +10,13 @@ There are workarounds, but for our Dear Editors, the best solution is an additio
 
 This editor does exactly that - adds a disable/enable toggle to the Nested Content (and Block List, for those playing on Umbraco 8.7+) header so your editors will forever be ... wait for it ... Nesting Contently.
 
-Supports Umbraco v7 (Nesting Contently v1) and v8 (Nesting Contently v2+). Installing the wrong version won't blow up your site, it just won't work.
+Supports Umbraco v7 (Nesting Contently v1) and v8+ (Nesting Contently v4+). Installing the wrong version won't blow up your site, it just won't work.
 
 ## What about Umbraco 9?
 
-Sure thing fam - v9-compatible version is available now. From here on in, Nesting Contently v4 will support Umbraco 8 and 9.
+Sure thing fam - v9-compatible version is available now. From here on in, Nesting Contently v4 will support Umbraco 8 and 9. Functionally, for now at least, v3 and v4 are identical aside from v4 supporting Umbraco 9.
+
+All future features and development will target v4, so upgrading v3 to v4 is still a worthwhile endeavour.
 
 ## Now with extra-juicy Property Value Converters
 Thanks entirely to work by Ronald Barendse, Nesting Contently now ships with three PVCs to manage conversions for the core Nesting Contently editor, and for filtering Nested Content and Block List editors.
