@@ -1,0 +1,65 @@
+name: Build
+
+on:
+  push:
+    tags: 
+      - v4.*
+    branches: 
+      - v4/dev
+  pull_request:
+    branches: 
+      - v4/dev   
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x 
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Copy lucene analyser
+      run: |
+        $src = "C:\Users\runneradmin\.nuget\packages\lucene.net\4.8.0-beta00014\analyzers\dotnet\cs"
+        $dest = "C:\Users\runneradmin\.nuget\packages\lucene.net\3.0.3\analyzers\dotnet\cs"
+
+        if (!(Test-Path -Path $dest)) {
+            New-Item -ItemType directory -Path $dest
+        }
+        Copy-Item -Path $src\*.dll -Destination $dest
+    - name: Create output dir
+      run: mkdir __out
+    - name: NPM install
+      run: |
+        cd ./NestingContently.Umbraco
+        npm install
+    - name: Build - DEBUG
+      if: ${{ github.ref != 'refs/tags/v4.*' }}
+      run: |
+        cd ./NestingContently.Umbraco
+        npm run build
+    - name: Build - RELEASE
+      if: ${{ github.ref == 'refs/tags/v4.*' }}
+      run: |
+       cd ./NestingContently.Umbraco
+       npm run prod
+    - name: Pack - DEBUG
+      if: ${{ github.ref != 'refs/tags/v4.*' }}
+      run: dotnet pack -c Debug -o __out --no-restore
+    - name: Pack and push - RELEASE
+      if: ${{ github.ref == 'refs/tags/v4.*' }}
+      run: |
+        dotnet pack -c Release -o __out --no-restore
+        dotnet nuget push "**/__out/*.nupkg" -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${{secrets.NUGET_TOKEN}}
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        path: __out
+    - name: Clean up
+      run: rm -r -force __out
+        

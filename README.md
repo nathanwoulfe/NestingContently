@@ -1,4 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/5d665tl2a8x082be?svg=true)](https://ci.appveyor.com/project/nathanwoulfe/nestingcontently)
+[![Build](https://github.com/nathanwoulfe/NestingContently/actions/workflows/build.yml/badge.svg)](https://github.com/nathanwoulfe/NestingContently/actions/workflows/build.yml)
+[![Release](https://github.com/nathanwoulfe/NestingContently/actions/workflows/release.yml/badge.svg)](https://github.com/nathanwoulfe/NestingContently/actions/workflows/release.yml)
 [![NuGet release](https://img.shields.io/nuget/dt/NestingContently.Umbraco.svg)](https://www.nuget.org/packages/NestingContently.Umbraco)
 
 # NestingContently
@@ -9,13 +10,13 @@ There are workarounds, but for our Dear Editors, the best solution is an additio
 
 This editor does exactly that - adds a disable/enable toggle to the Nested Content (and Block List, for those playing on Umbraco 8.7+) header so your editors will forever be ... wait for it ... Nesting Contently.
 
-## Support
+Supports Umbraco v7 (Nesting Contently v1) and v8+ (Nesting Contently v4+). Installing the wrong version won't blow up your site, it just won't work.
 
-- Umbraco 7 => Nesting Contently v1
-- Umbraco 8.1-8.6 => Nesting Contently v2
-- Umbraco 8.7+ => Nesting Contently III
+## What about Umbraco 9?
 
-Installing the wrong version won't blow up your site, it just won't work. Just kidding, it might blow up your site. Try it and let me know.
+Sure thing fam - v9-compatible version is available now. From here on in, Nesting Contently v4 will support Umbraco 8 and 9. Functionally, for now at least, v3 and v4 are identical aside from v4 supporting Umbraco 9.
+
+All future features and development will target v4, so upgrading v3 to v4 is still a worthwhile endeavour.
 
 ## Now with extra-juicy Property Value Converters
 Thanks entirely to work by Ronald Barendse, Nesting Contently now ships with three PVCs to manage conversions for the core Nesting Contently editor, and for filtering Nested Content and Block List editors.
@@ -49,9 +50,39 @@ Toggling the button modifies the parent's parent's parent's (maybe another paren
 
 There's no need to touch any core files, so no worries with upgrade paths being borked. Some of the implementation is a little bit dirty, but this is essentially a hack anyway, so sue me (don't though).
 
+### Extra setup bit if you don't want to install the property converters package (if not, why not?)
+
+The above bits said, Models Builder doesn't play nice with Nesting Contently given the absence of a property value converter. Rather than adding an assembly to the package simply to deliver 8 lines of code, it's included below instead. 
+
+Depending on your setup, this may not matter - using `umbracoNaviHide` and `.IsVisible()` will work fine without the converter - `.IsVisible()` explicitly uses Umbraco's built-in boolean converter, and is nicely declarative so makes your code more readable.
+
+Add this somewhere to your solution to keep Models Builder happy (for v7, and v8, respectively):
+
+```csharp
+[PropertyValueType(typeof(bool))]
+[PropertyValueCache(PropertyCacheValue.All, PropertyCacheLevel.Content)]
+public class NestingContentlyValueConverter : Umbraco.Core.PropertyEditors.ValueConverters.YesNoValueConverter
+{
+    public override bool IsConverter(PublishedPropertyType propertyType)
+    {
+        return propertyType.PropertyEditorAlias == "NestingContently";
+    }
+}    
+```
+
+```csharp
+using Umbraco.Core.Models.PublishedContent;
+
+public class NestingContentlyValueConverter : Umbraco.Core.PropertyEditors.ValueConverters.YesNoValueConverter
+{
+   public override bool IsConverter(IPublishedPropertyType propertyType)
+      => propertyType.EditorAlias == "NestingContently";
+}
+```
+
 ## Drama Cabana
 
-It's a long read, but [this thread](http://issues.umbraco.org/issue/U4-10422) provides some background context around why this feature is (or isn't, depending on your perspective) needed in the core.
+It's a long read, but [this thread](http://issues.umbraco.org/issue/U4-10422) provides some background context around why this feature is (or isn't, depending on your persective) needed in the core.
 
 It's also an interesting insight into product and community management, contributing to OSS and the investment plenty of people have in the Umbraco ecosystem.
 

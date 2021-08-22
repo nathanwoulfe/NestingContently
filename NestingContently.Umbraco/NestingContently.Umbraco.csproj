@@ -1,36 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<Id>NestingContently.Umbraco</Id>
-		<Version>3.1.4</Version>
-		<Title>Nesting Contently</Title>
-		<Description>A property editor for toggling the display state of Nested Content and Block List items</Description>
-		<Authors>Nathan Woulfe</Authors>
-		<PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<EnableDefaultItems>false</EnableDefaultItems>
-		<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
-		<NuspecFile>package.nuspec</NuspecFile>
-		<NuspecProperties>id=$(Id);version=$(Version);title=$(Title);description=$(Description);authors=$(Authors);projectUrl=$(PackageProjectUrl);license=$(PackageLicenseExpression);configuration=$(Configuration)</NuspecProperties>
-	</PropertyGroup>
-	<Target Name="NpmBuild" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Release'">
-		<Exec Command="npm run build" />
-	</Target>
-	<Target Name="NpmPublish" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release'">
-		<Exec Command="npm ci --prefer-offline" />
-		<Exec Command="npm run publish" />
-	</Target>
-	<Target Name="UmbPack" AfterTargets="Pack">
-		<Exec Command="umbpack pack package.xml -p &quot;$(NuspecProperties)&quot; -o $(PackageOutputPath)" />
-	</Target>
-	<ItemGroup>
-		<Content Include="App_Plugins\NestingContently\**" />
-		<None Include="src\**" />
-		<None Include="package.json" />
-		<None Include="package-lock.json">
-			<DependentUpon>package.json</DependentUpon>
-		</None>
-		<None Include="package.nuspec" />
-		<None Include="package.xml" />
+  <PropertyGroup>
+    <TargetFrameworks>net472;net5.0</TargetFrameworks>
+    <Id>NestingContently.Umbraco</Id>
+    <Version>4.0.0</Version>
+    <Title>Nesting Contently</Title>
+    <Description>A property editor for toggling the display state of Nested Content and Block List items</Description>
+    <Authors>Nathan Woulfe</Authors>
+    <PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nathanwoulfe/nestingcontently</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTag>Umbraco;NestedContent;BlockList;</PackageTag>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework) == 'net472'">
+		<PackageReference Include="UmbracoCms.Core" Version="8.7.0" />
+		<PackageReference Include="UmbracoCms.Web" Version="8.7.0" />
 	</ItemGroup>
+	<ItemGroup Condition="$(TargetFramework) == 'net5.0'">
+        <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0-rc002" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-rc002" />
+    </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\**\*.*">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <None Include="build\**\*.*">
+      <Pack>True</Pack>
+      <PackagePath>buildTransitive</PackagePath>
+    </None>
+    <None Include="package.json" />
+    <None Include="src\*.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="node_modules\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="node_modules\**" />
+  </ItemGroup>
 </Project>

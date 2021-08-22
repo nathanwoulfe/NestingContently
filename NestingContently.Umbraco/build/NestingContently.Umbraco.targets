@@ -1,0 +1,26 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <NestingContentlyPackageContentFilesPath>$(MSBuildThisFileDirectory)..\Content\App_Plugins\NestingContently\**\*.*</NestingContentlyPackageContentFilesPath>
+    </PropertyGroup>
+
+    <Target Name="CopyNestingContentlyPackageAssets" BeforeTargets="Build">
+        <ItemGroup>
+            <NestingContentlyPackageContentFiles Include="$(NestingContentlyPackageContentFilesPath)" />
+        </ItemGroup>
+        <Message Text="Copying NestingContently Package files: $(NestingContentlyPackageContentFilesPath) - #@(NestingContentlyPackageContentFiles->Count()) files"  Importance="high" />
+        <Copy
+            SourceFiles="@(NestingContentlyPackageContentFiles)"
+            DestinationFiles="@(NestingContentlyPackageContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\NestingContently\%(RecursiveDir)%(Filename)%(Extension)')"
+            SkipUnchangedFiles="true" />
+    </Target>
+
+    <Target Name="ClearNestingContentlyPackageAssets" BeforeTargets="Clean">
+        <ItemGroup>
+            <NestingContentlyPackageDir Include="$(MSBuildProjectDirectory)\App_Plugins\NestingContently\" />
+        </ItemGroup>
+        <Message Text="Clear old NestingContently data"  Importance="high" />
+        <RemoveDir Directories="@(NestingContentlyPackageDir)"  />
+    </Target>
+
+</Project>

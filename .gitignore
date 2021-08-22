@@ -5,3 +5,5 @@ node_modules/
 *.user
 *.min.js
 /dist/App_Plugins/NestingContently
+/__out
+/NestingContently.Umbraco/__out
