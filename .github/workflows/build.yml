@@ -33,33 +33,22 @@ jobs:
         }
         Copy-Item -Path $src\*.dll -Destination $dest
     - name: Create output dir
-      run: mkdir __out
+      run: mkdir nupkgs
     - name: NPM install
       run: |
         cd ./NestingContently.Umbraco
         npm install
-    - name: Build - DEBUG
-      if: ${{ github.ref != 'refs/tags/v4.*' }}
+        npm run prod
+    - name: Pack
+      run: dotnet pack -c Release -o nupkgs --no-restore
+    - name: Push
+      if: startsWith(github.ref, 'refs/tags/v4')
       run: |
-        cd ./NestingContently.Umbraco
-        npm run build
-    - name: Build - RELEASE
-      if: ${{ github.ref == 'refs/tags/v4.*' }}
-      run: |
-       cd ./NestingContently.Umbraco
-       npm run prod
-    - name: Pack - DEBUG
-      if: ${{ github.ref != 'refs/tags/v4.*' }}
-      run: dotnet pack -c Debug -o __out --no-restore
-    - name: Pack and push - RELEASE
-      if: ${{ github.ref == 'refs/tags/v4.*' }}
-      run: |
-        dotnet pack -c Release -o __out --no-restore
-        dotnet nuget push "**/__out/*.nupkg" -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${{secrets.NUGET_TOKEN}}
+        dotnet nuget push "**/nupkgs/*.nupkg" -s https://api.nuget.org/v3/index.json --skip-duplicate -k ${{secrets.NUGET_TOKEN}}
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         path: __out
     - name: Clean up
-      run: rm -r -force __out
+      run: rm -r -force nupkgs
         
