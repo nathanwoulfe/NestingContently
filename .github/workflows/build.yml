@@ -38,7 +38,7 @@ jobs:
       run: |
         cd ./NestingContently.Umbraco
         npm install
-        npm run prod
+        npm run publish
     - name: Pack
       run: dotnet pack -c Release -o nupkgs --no-restore
     - name: Push
