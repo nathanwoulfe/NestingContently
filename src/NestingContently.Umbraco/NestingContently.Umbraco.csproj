@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <PackageId>NestingContently.Umbraco</PackageId>
+    <Title>Nesting Contently</Title>
+    <Description>A property editor for toggling the display state of Nested Content and Block List items in Umbraco CMS</Description>
+    <PackageTag>umbraco umbraco-marketplace nested-content block-list block-grid</PackageTag>
+    <StaticWebAssetBasePath>App_Plugins/NestingContently</StaticWebAssetBasePath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+  
+	<ItemGroup>
+        <PackageReference Include="Umbraco.Cms.Web.Website" Version="11.*" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.*" />
+  </ItemGroup>
+  
+  <Import Project="build\Microsoft.AspNetCore.ClientAssets.targets" />
+  <Target Name="ClientAssetsBuildOutputPath" AfterTargets="ClientAssetsBuild">
+    <WriteLinesToFile File="Backoffice\gulp\config.outputPath.js" Lines="export const outputPath = '../$(IntermediateOutputPath.Replace('\', '/'))clientassets';" Overwrite="true" />
+  </Target>
+</Project>
