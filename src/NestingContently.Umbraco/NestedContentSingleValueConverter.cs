@@ -9,14 +9,23 @@ namespace NestingContently.Umbraco.ValueConverters;
 
 public class NC_NestedContentSingleValueConverter : NestedContentSingleValueConverter
 {
-    public NC_NestedContentSingleValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog)
+    public NC_NestedContentSingleValueConverter(
+        IPublishedSnapshotAccessor publishedSnapshotAccessor,
+        IPublishedModelFactory publishedModelFactory,
+        IProfilingLogger proflog)
         : base(publishedSnapshotAccessor, publishedModelFactory, proflog)
     { }
 
-    public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
+    public override object? ConvertIntermediateToObject(
+        IPublishedElement owner,
+        IPublishedPropertyType propertyType,
+        PropertyCacheLevel referenceCacheLevel,
+        object? inter,
+        bool preview)
     {
-        var element = (IPublishedElement)base.ConvertIntermediateToObject(owner, propertyType, referenceCacheLevel, inter, preview);
-        if (element != null && !element.IsVisible())
+        var element = (IPublishedElement?)base.ConvertIntermediateToObject(owner, propertyType, referenceCacheLevel, inter, preview);
+
+        if (element is not null && !element.IsVisible())
         {
             return null;
         }

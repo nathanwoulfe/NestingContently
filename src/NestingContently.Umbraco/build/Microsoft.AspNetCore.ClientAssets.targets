@@ -6,7 +6,7 @@
         - https://github.com/dotnet/aspnetcore/issues/38445
     -->
   <PropertyGroup>
-    <ClientAssetsDirectory Condition="'$(ClientAssetsDirectory)' == ''">Backoffice\app\</ClientAssetsDirectory>
+    <ClientAssetsDirectory Condition="'$(ClientAssetsDirectory)' == ''">backoffice\app\</ClientAssetsDirectory>
     <ClientAssetsRestoreInputs Condition="'$(ClientAssetsRestoreInputs)' == ''">package-lock.json;package.json</ClientAssetsRestoreInputs>
     <ClientAssetsRestoreOutputs Condition="'$(ClientAssetsRestoreOutputs)' == ''">node_modules\.package-lock.json</ClientAssetsRestoreOutputs>
     <ClientAssetsRestoreCommand Condition="'$(ClientAssetsRestoreCommand)' == ''">npm ci --no-fund --no-audit --prefer-offline</ClientAssetsRestoreCommand>

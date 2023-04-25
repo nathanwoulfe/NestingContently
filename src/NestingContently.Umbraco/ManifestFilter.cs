@@ -1,4 +1,5 @@
 using System.Reflection;
+using Umbraco.Cms.Core.Manifest;
 
 namespace NestingContently.Umbraco;
 
@@ -14,11 +15,11 @@ internal sealed class ManifestFilter : IManifestFilter
             AllowPackageTelemetry = true,
             Scripts = new[]
             {
-                "/App_Plugins/NestingContently/backoffice/nesting-contently.min.js",
+                $"{Constants.PackagePath}nesting-contently.min.js",
             },
             Stylesheets = new[]
             {
-                "/App_Plugins/NestingContently/backoffice/nesting-contently.min.css",
+                $"{Constants.PackagePath}nesting-contently.min.css",
             },
         });
     }

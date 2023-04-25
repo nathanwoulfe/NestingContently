@@ -10,23 +10,31 @@ namespace NestingContently.Umbraco.ValueConverters;
 
 public class NC_NestedContentManyValueConverter : NestedContentManyValueConverter
 {
-    public NC_NestedContentManyValueConverter(IPublishedSnapshotAccessor publishedSnapshotAccessor, IPublishedModelFactory publishedModelFactory, IProfilingLogger proflog)
+    public NC_NestedContentManyValueConverter(
+        IPublishedSnapshotAccessor publishedSnapshotAccessor,
+        IPublishedModelFactory publishedModelFactory,
+        IProfilingLogger proflog)
         : base(publishedSnapshotAccessor, publishedModelFactory, proflog)
     { }
 
-    public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
+    public override object ConvertIntermediateToObject(
+        IPublishedElement owner,
+        IPublishedPropertyType propertyType,
+        PropertyCacheLevel referenceCacheLevel,
+        object? inter,
+        bool preview)
     {
-        var list = (IList)base.ConvertIntermediateToObject(owner, propertyType, referenceCacheLevel, inter, preview);
-        if (list != null)
+        var list = (IList?)base.ConvertIntermediateToObject(owner, propertyType, referenceCacheLevel, inter, preview);
+        if (list is not null)
         {
             // Because the list can have different generic types, keep the current instance and only remove hidden elements
-            var elements = list.Cast<IPublishedElement>().Where(e => !e.IsVisible()).ToArray();
-            foreach (var element in elements)
+            IPublishedElement[] elements = list.Cast<IPublishedElement>().Where(e => !e.IsVisible()).ToArray();
+            foreach (IPublishedElement? element in elements)
             {
                 list.Remove(element);
             }
         }
 
-        return list;
+        return list ?? new List<IPublishedElement>();
     }
 }

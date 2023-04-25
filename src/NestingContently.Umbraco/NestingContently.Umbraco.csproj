@@ -17,8 +17,21 @@
         <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="11.*" />
   </ItemGroup>
   
+	<ItemGroup>
+	  <Folder Include="Backoffice\types\" />
+	</ItemGroup>
+  
   <Import Project="build\Microsoft.AspNetCore.ClientAssets.targets" />
   <Target Name="ClientAssetsBuildOutputPath" AfterTargets="ClientAssetsBuild">
     <WriteLinesToFile File="Backoffice\gulp\config.outputPath.js" Lines="export const outputPath = '../$(IntermediateOutputPath.Replace('\', '/'))clientassets';" Overwrite="true" />
   </Target>
+  <ItemGroup>
+    <ClientAssetsInputs Remove="Backoffice\app\styles.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Backoffice\app\styles.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Backoffice\app\styles.scss" />
+  </ItemGroup>
 </Project>

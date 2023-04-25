@@ -4,5 +4,5 @@ import { paths } from './config';
 
 export function views() {
   return gulp.src(paths.views)
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(paths.dest + '/backoffice'));
 }

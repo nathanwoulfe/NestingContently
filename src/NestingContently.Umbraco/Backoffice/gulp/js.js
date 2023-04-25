@@ -18,7 +18,7 @@ export function js() {
 }
 
 function _js(glob, filename) {
-  const jsDest = '/Backoffice/';
+  const jsDest = '/backoffice/';
 
   // gulp expects tasks to return a stream, so we create one here.
   var bundledStream = through();

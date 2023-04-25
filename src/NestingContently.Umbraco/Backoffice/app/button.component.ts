@@ -1,63 +1,92 @@
-angular.module('nc.components').component('ncToggle', {
-	transclude: true,
-	bindings: {
-		node: '<',
-		index: '<',
-		type: '@'
-	},
-	controller: ['$element', '$rootScope', 'localizationService', 'ncStrings', function ($element, $rootScope, locale, strings) {
-		let prop = {};
-		let labels = {};
-		let disabled = false;
+class ButtonComponentController {
 
-		locale.localizeMany(['actions_enable', 'actions_disable']).then(data => {
-			let [enable, disable] = data;
-			labels = { enable, disable };
-		});
+  prop: Record<string, any> = {};
+  labels = {};
+  disabled = false;
+  type;
+  node;
+  iconTitle = '';
+  enable = '';
+  disable = '';
 
-		const setClass = fn => $element.closest(strings[this.type].itemClass)[0]
-			.classList[fn](strings[this.type].disabledClass);
+  constructor(
+    private $element,
+    private localizationService,
+    private ncStrings) {
 
-		const setTitle = () => this.iconTitle = disabled ? labels.enable : labels.disable;
+  }
 
-		this.toggle = () => {
-			disabled = !disabled;
-			prop.value = disabled ? '1' : '0';
+  $onInit = async () => {
 
-			if (this.type === 'nc') {
-				$rootScope.$broadcast('ncDisabledToggle', { value: prop.value, key: this.node.key });
-			}
+    if (!this.node) {
+      return;
+    }
 
-			setTitle();
-			setClass('toggle');
-		};
+    [this.enable, this.disable] = await this.localizationService.localizeMany(['actions_enable', 'actions_disable']);
 
-		this.$onInit = () => {
-			if (this.node) {
-				prop = (this.type === 'nc' ? this.node : this.node.content).variants[0].tabs[0]
-					.properties.find(p => p.editor === strings.editorName);
+    let activeVariant = this.node.settings.variants.find(x => x.active);
+    activeVariant = activeVariant ?? this.node.settings.variants[0];
+    let property;
 
-				if (prop) {
-					disabled = prop.value === '1';
+    activeVariant.tabs.forEach(tab => {
+      tab.properties.forEach(prop => {
+        if (prop.alias === 'umbracoNaviHide') {
+          property = prop;
+          return;
+        }
+      });
 
-					setTitle();
+      if (property) {
+        return;
+      }
+    })
 
-					if (disabled) {
-						setClass('add');
-					}
-				} else {
-					$element[0].style.display = 'none';
-				}
-			}
-		};
-	}],
-	template:
-		`<button type="button" class="umb-nested-content__icon umb-nested-content__icon--disable" 
-			title="{{ $ctrl.iconTitle }}" 
-			ng-click="$ctrl.toggle(); $event.stopPropagation()">
-			<i class="icon icon-power" aria-hidden="true"></i>
-			<span class="sr-only">
-				{{ $ctrl.iconTitle }}
-			</span>
-		</button>`
-});
+    this.prop = property;
+
+    if (this.prop) {
+      this.disabled = this.prop.value === '1';
+
+      this.setTitle();
+
+      if (this.disabled) {
+        this.setClass('add');
+      }
+    } else {
+      this.$element[0].style.display = 'none';
+    }
+  }
+
+  setClass = fn => this.$element.closest(this.ncStrings[this.type].itemClass)[0]
+    .classList[fn](this.ncStrings[this.type].disabledClass);
+
+  setTitle = () => this.iconTitle = this.disabled ? this.enable : this.disable;
+
+  toggle = () => {
+    this.disabled = !this.disabled;
+    this.prop.value = this.disabled ? '1' : '0';
+    this.setTitle();
+    this.setClass('toggle');
+  };
+}
+
+const template =
+  `<button type="button" class="umb-nested-content__icon umb-nested-content__icon--disable" 
+		title="{{ $ctrl.iconTitle }}" 
+		ng-click="$ctrl.toggle(); $event.stopPropagation()">
+		<i class="icon icon-power" aria-hidden="true"></i>
+		<span class="sr-only">
+			{{ $ctrl.iconTitle }}
+		</span>
+	</button>`;
+
+export const ButtonComponent = {
+  name: 'ncToggle',
+  transclude: true,
+  template,
+  bindings: {
+    node: '<',
+    index: '<',
+    type: '@'
+  },
+  controller: ButtonComponentController
+};

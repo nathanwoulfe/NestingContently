@@ -8,7 +8,7 @@ import gulpif from 'gulp-if';
 import { paths, config } from './config';
 
 export function scss() {
-  const cssDest = '/Backoffice/';
+  const cssDest = '/backoffice/';
 
   return gulp.src(paths.scss)
     .pipe(sass())
