@@ -45,13 +45,17 @@ class ButtonComponentController {
       return;
     }
 
-    this.valueWatcher = this.$scope.$watch(() => this.prop.value, (newVal) => {
+    this.valueWatcher = this.$scope.$watch(() => this.prop.value, (newVal, oldVal) => {
       if (!newVal) {
         return;
       }
 
       this.setTitle();
       this.setClass();
+
+      if (newVal !== oldVal) {
+        this.node._parentForm.$setDirty();
+      }
     });
 
     this.setTitle();
