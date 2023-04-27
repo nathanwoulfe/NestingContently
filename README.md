@@ -4,7 +4,7 @@ There are workarounds, but for our Dear Editors, the best solution is an additio
 
 While the days of Nested Content are largely behind us, the same issue exists in Block Grid and Block List.
 
-The latest version of Nesting Contently (Episode V - A New Hope) supports ONLY Block-based editors on Umbraco 10 and 11, adding a toggle to the block header so your editors will forever be ... wait for it ... Nesting Contently.
+The latest version of Nesting Contently (Episode V - The Toggle Strikes Back) supports ONLY Block-based editors on Umbraco 10 and 11, adding a toggle to the block header so your editors will forever be ... wait for it ... Nesting Contently.
 
 # Getting started
 
