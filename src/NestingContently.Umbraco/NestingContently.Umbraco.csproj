@@ -15,11 +15,7 @@
 	<ItemGroup>
         <PackageReference Include="Umbraco.Cms.Web.Website" Version="[10.0.0, 12)" />
         <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.0.0, 12)" />
-  </ItemGroup>
-  
-	<ItemGroup>
-	  <Folder Include="Backoffice\types\" />
-	</ItemGroup>
+  </ItemGroup>  
   
   <Import Project="build\Microsoft.AspNetCore.ClientAssets.targets" />
   <Target Name="ClientAssetsBuildOutputPath" AfterTargets="ClientAssetsBuild">

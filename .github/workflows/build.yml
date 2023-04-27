@@ -27,9 +27,9 @@ jobs:
       run: mkdir nupkgs
     - name: NPM install
       run: |
-        cd ./NestingContently.Umbraco/Backoffice
+        cd ./src/NestingContently.Umbraco/Backoffice
         npm install
-        npm run publish
+        npm run build
     - name: Pack
       run: dotnet pack -c Release -o nupkgs --no-restore
     - name: Push
