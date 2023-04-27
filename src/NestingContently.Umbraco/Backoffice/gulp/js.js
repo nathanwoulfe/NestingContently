@@ -8,7 +8,6 @@ import babelify from 'babelify';
 import browserify from 'browserify';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
-import embedTemplates from 'gulp-angular-embed-templates';
 import tsify from 'tsify';
 
 import { paths, config } from './config';
@@ -31,10 +30,6 @@ function _js(glob, filename) {
     // here we're copying from the Browserify + Uglify2 recipe.
     .pipe(buffer())
     .pipe(!config.prod ? sourcemaps.init({ loadMaps: true }) : gutil.noop())
-    // Add gulp plugins to the pipeline here.
-    .pipe(embedTemplates({
-      basePath: './'
-    }))
     .on('error', log.error)
     .pipe(!config.prod ? sourcemaps.write() : gutil.noop())
     .pipe(gulp.dest(paths.dest + jsDest));

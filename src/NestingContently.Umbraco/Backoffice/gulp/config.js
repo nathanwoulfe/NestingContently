@@ -13,9 +13,6 @@ function getOutputPath() {
 
 export const paths = {
   js: [`${backofficePath}/**/*.ts`,],
-  views: [`${backofficePath}/**/*.html`],
-  scss: `${backofficePath}/**/*.scss`,
-  lang: `${backofficePath}/Lang/*.xml`,
   dest: getOutputPath()
 };
 

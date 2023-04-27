@@ -1,0 +1,19 @@
+{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "AuthorDetails": {
+    "Description": "Nathan works at Umbraco HQ. This package is provided in a personal capacity.",
+    "Url": "https://nathanw.com.au",
+    "ImageUrl": "https://github.com/nathanwoulfe.png",
+    "Contributors": [
+      {
+        "Name": "Ronald Barendse",
+        "Url":  "https://github.com/ronaldbarendse"
+      }
+    ]
+  },
+  "Category": "Editor Tools",
+  "LicenseTypes": [ "Free" ],
+  "IssueTrackerUrl": "https://github.com/nathanwoulfe/nestingcontently/issues",
+  "PackageType": "Package",
+  "DiscussionForumUrl": "https://github.com/nathanwoulfe/nestingcontently/discussions"
+}

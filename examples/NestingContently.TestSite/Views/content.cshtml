@@ -11,5 +11,8 @@
 @await Html.PartialAsync("~/Views/Partials/pageHeader.cshtml", new PageHeaderViewModel(Model.Name, Model.Title, Model.Subtitle, Model.MainImage))
 
 <article>
-    @Html.GetGridHtml(Model, "mainContent", "Clean")
+    
+@await Html.GetBlockGridHtmlAsync(Model, "blockGrid")   
+@Html.GetBlockListHtml(Model, "blockList")
+@Html.GetGridHtml(Model, "mainContent", "Clean")
 </article>

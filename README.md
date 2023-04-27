@@ -1,40 +1,52 @@
-[![Build](https://github.com/nathanwoulfe/NestingContently/actions/workflows/build.yml/badge.svg)](https://github.com/nathanwoulfe/NestingContently/actions/workflows/build.yml)
-[![Release](https://github.com/nathanwoulfe/NestingContently/actions/workflows/release.yml/badge.svg)](https://github.com/nathanwoulfe/NestingContently/actions/workflows/release.yml)
-[![NuGet release](https://img.shields.io/nuget/dt/NestingContently.Umbraco.svg)](https://www.nuget.org/packages/NestingContently.Umbraco)
-
-# NestingContently
-
-Depending on who you ask, a big gap in Umbraco's Nested Content property editor is the ability to disable nested items (ie, keep them in the current editor, but turn 'em off on the front end). 
+Depending on who you ask, a big gap in Umbraco's original Nested Content property editor was the ability to disable nested items (ie, keep them in the current editor, but turn 'em off on the front end). 
 
 There are workarounds, but for our Dear Editors, the best solution is an additional button in the header row for each nested item (Archetype fans, I see you nodding).
 
-This editor does exactly that - adds a disable/enable toggle to the Nested Content (and Block List, for those playing on Umbraco 8.7+) header so your editors will forever be ... wait for it ... Nesting Contently.
+While the days of Nested Content are largely behind us, the same issue exists in Block Grid and Block List.
 
-Supports Umbraco v7 (Nesting Contently v1) and v8+ (Nesting Contently v4+). Installing the wrong version won't blow up your site, it just won't work.
+The latest version of Nesting Contently (Episode V - A New Hope) supports ONLY Block-based editors on Umbraco 10 and 11, adding a toggle to the block header so your editors will forever be ... wait for it ... Nesting Contently.
 
-## What about Umbraco 9?
+# Getting started
 
-Sure thing fam - v9-compatible version is available now. From here on in, Nesting Contently v4 will support Umbraco 8 and 9. Functionally, for now at least, v3 and v4 are identical aside from v4 supporting Umbraco 9.
+Installing and setting up the latest Nesting Contently version is straightforward:
 
-All future features and development will target v4, so upgrading v3 to v4 is still a worthwhile endeavour.
+- Install via your CLI of choice:
+ - `dotnet add package NestingContently.Umbraco`
+ - `Install-Package NestingContently.Umbraco`
+- Add a true/false property to the block settings element
+- The property alias MUST be `umbracoNaviHide`
+- Done. That's it. No more.
+- Amaze your editors with the added flexibility
 
-## Now with extra-juicy Property Value Converters
-Thanks entirely to work by Ronald Barendse, Nesting Contently now ships with three PVCs to manage conversions for the core Nesting Contently editor, and for filtering Nested Content and Block List editors.
+There's no longer a property editor to install, just some helpful Javascript to manage injecting the button and syncing the value change back to the block settings.
 
-While the above says 'ships with' it's much more a case of ships as a supporting package. Install that bundle of awesome via NuGet => `install-package NestingContently.Umbraco.ValueConverters`.
+Nesting Contently 5 ships with property value converters for Block List and Block Grid, to remove any hidden blocks before rendering.
+
+For Block Grid, this works with infinitely nested blocks, so feel free to create disgusting levels of nesting.
+
+There's no need to read any further, the rest is just a history lesson, but you can [jump straight to the good part](http://issues.umbraco.org/issue/U4-10422) and the [follow up good part](https://github.com/umbraco/Umbraco-CMS/issues/2887).
+
+# What about the old Umbraco versions?
+
+Nesting Contently originally supported Umbraco v7 (Nesting Contently v1), and only supported the Nested Content editor.
+
+Support for v8+ (Nesting Contently v4+) came later.
+
+v4 eventually supported Umbraco 8 and 9, with support for Nested Content and Block List.
+
+Installing the wrong version won't blow up your site, it just won't do anything. That said, there's no plans to support anything other than the latest version.
 
 ## Introducing Nesting Contently III - with a vengeance
-Umbraco 8.7 introduces the Block List editor, which takes all the best bits of Nested Content, the Grid, Doc Type Grid Editor and others, mixes in a bit of unicorn snot to stick it all together and creates a new editing paradigm. Only thing missing? A native disable button for blocks.
+Umbraco 8.7 introduced the Block List editor (can you believe it was that long ago?), which takes all the best bits of Nested Content, the Grid, Doc Type Grid Editor and others, mixes in a bit of unicorn snot to stick it all together and creates a new editing paradigm. Only thing missing? A native disable button for blocks.
 
 Fear not! Nesting Contently III got your back, friend. NC III works its magic on the Block List, to make disabling blocks as easy as something really easy. NC III also supports nested Nested Content, if you're into that kinda thing. Probably supports nested nested Nested Content too, you pervert.
 
 NC III is a big old change of approach with respect to updating model values - it's a lot simpler, to better work with (around?) Nested Content's interesting (odd?) approach to model syncing. For Block List, it's super straight forward, which is nice, and allows NC III to support both editors from the same implementation.
 
-## Get it
+### Get it
  - via Nuget => `Install-Package NestingContently.Umbraco`
- - [zipped and ready to install](https://ci.appveyor.com/project/nathanwoulfe/nestingcontently/build/artifacts)
 
-## Setup
+### Setup
 
  - Install this package (derp)
  - Create a new data type using the Nesting Contently editor

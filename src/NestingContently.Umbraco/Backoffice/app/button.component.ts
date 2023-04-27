@@ -1,24 +1,24 @@
 class ButtonComponentController {
 
   prop: Record<string, any> = {};
-  labels = {};
-  disabled = false;
-  type;
+  selector?: 'grid' | 'list';
   node;
   iconTitle = '';
   enable = '';
   disable = '';
 
+  valueWatcher?: Function;
+
   constructor(
+    private $scope,
     private $element,
-    private localizationService,
-    private ncStrings) {
+    private localizationService) {
 
   }
 
-  $onInit = async () => {
-
-    if (!this.node) {
+  async $onInit() {
+    if (!this.node || !this.node.settings) {
+      this.$element[0].style.display = 'none';
       return;
     }
 
@@ -26,57 +26,65 @@ class ButtonComponentController {
 
     let activeVariant = this.node.settings.variants.find(x => x.active);
     activeVariant = activeVariant ?? this.node.settings.variants[0];
-    let property;
 
     activeVariant.tabs.forEach(tab => {
       tab.properties.forEach(prop => {
         if (prop.alias === 'umbracoNaviHide') {
-          property = prop;
+          this.prop = prop;
           return;
         }
       });
 
-      if (property) {
+      if (this.prop) {
         return;
       }
-    })
+    });
 
-    this.prop = property;
+    if (!this.prop) {
+      this.$element[0].style.display = 'none';
+      return;
+    }
 
-    if (this.prop) {
-      this.disabled = this.prop.value === '1';
+    this.valueWatcher = this.$scope.$watch(() => this.prop.value, (newVal) => {
+      if (!newVal) {
+        return;
+      }
 
       this.setTitle();
+      this.setClass();
+    });
 
-      if (this.disabled) {
-        this.setClass('add');
-      }
-    } else {
-      this.$element[0].style.display = 'none';
-    }
+    this.setTitle();
+    this.setClass();    
   }
 
-  setClass = fn => this.$element.closest(this.ncStrings[this.type].itemClass)[0]
-    .classList[fn](this.ncStrings[this.type].disabledClass);
+  $onDestroy() {
+    this.valueWatcher ? this.valueWatcher() : {};
+  }
 
-  setTitle = () => this.iconTitle = this.disabled ? this.enable : this.disable;
+  setClass = () => {
+    if (!this.selector) {
+      return;
+    }
 
-  toggle = () => {
-    this.disabled = !this.disabled;
-    this.prop.value = this.disabled ? '1' : '0';
-    this.setTitle();
-    this.setClass('toggle');
-  };
+    const elm = this.$element.closest(`.umb-block-${this.selector}__block`)[0]
+
+    if (!elm) {
+      return;
+    }
+
+    elm.style.opacity = this.prop.value !== '1' ? '1' : '0.5';
+  }
+
+  setTitle = () => this.iconTitle = this.prop.value !== '1' ? this.disable : this.enable;
+
+  toggle = () => this.prop.value = this.prop.value !== '1' ? '1' : '0';  
 }
 
 const template =
-  `<button type="button" class="umb-nested-content__icon umb-nested-content__icon--disable" 
-		title="{{ $ctrl.iconTitle }}" 
-		ng-click="$ctrl.toggle(); $event.stopPropagation()">
-		<i class="icon icon-power" aria-hidden="true"></i>
-		<span class="sr-only">
-			{{ $ctrl.iconTitle }}
-		</span>
+  `<button type="button" class="btn-reset umb-outline action --settings" title="{{ $ctrl.iconTitle }}" ng-click="$ctrl.toggle()">
+		<umb-icon icon="icon-power"></umb-icon>
+		<span class="sr-only" ng-bind="$ctrl.iconTitle"></span>
 	</button>`;
 
 export const ButtonComponent = {
@@ -85,8 +93,7 @@ export const ButtonComponent = {
   template,
   bindings: {
     node: '<',
-    index: '<',
-    type: '@'
+    selector: '@'
   },
   controller: ButtonComponentController
 };

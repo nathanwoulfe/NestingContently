@@ -26,14 +26,11 @@ public class NC_BlockListPropertyValueConverter : BlockListPropertyValueConverte
     {
         var model = (BlockListModel?)base.ConvertIntermediateToObject(owner, propertyType, referenceCacheLevel, inter, preview);
 
-        if (model is not null)
+        if (model is null)
         {
-            // The property is currently only supported on content
-            var list = model.Where(i => i.Content.IsVisible()).ToList();
-
-            return new BlockListModel(list);
+            return null;
         }
 
-        return model;
+        return new BlockListModel(model.Where(i => i.Settings.IsVisible()).ToList());
     }
 }
