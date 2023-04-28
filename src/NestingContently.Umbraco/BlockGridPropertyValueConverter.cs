@@ -10,12 +10,11 @@ namespace NestingContently.Umbraco.ValueConverters;
 
 public class NC_BlockGridPropertyValueConverter : BlockGridPropertyValueConverter
 {
-    public NC_BlockGridPropertyValueConverter(
-        IProfilingLogger logger,
-        BlockEditorConverter blockConverter,
-        IJsonSerializer jsonSerializer)
+    public NC_BlockGridPropertyValueConverter(IProfilingLogger logger, BlockEditorConverter blockConverter, IJsonSerializer jsonSerializer)
         : base(logger, blockConverter, jsonSerializer)
-    { }
+    {
+
+    }
 
     public override object? ConvertIntermediateToObject(
         IPublishedElement owner,

@@ -2,8 +2,8 @@
   <PropertyGroup>
     <PackageId>NestingContently.Umbraco</PackageId>
     <Title>Nesting Contently</Title>
-    <Description>A property editor for toggling the display state of Nested Content and Block List items in Umbraco CMS</Description>
-    <PackageTag>umbraco umbraco-marketplace nested-content block-list block-grid</PackageTag>
+    <Description>A property editor for toggling the display state of Block elements in Umbraco CMS</Description>
+    <PackageTag>umbraco umbraco-marketplace block-list block-grid</PackageTag>
     <StaticWebAssetBasePath>App_Plugins/NestingContently</StaticWebAssetBasePath>
   </PropertyGroup>
 
@@ -13,8 +13,8 @@
   </ItemGroup>
   
 	<ItemGroup>
-        <PackageReference Include="Umbraco.Cms.Web.Website" Version="[10.0.0, 12)" />
-        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.0.0, 12)" />
+        <PackageReference Include="Umbraco.Cms.Web.Website" Version="[11.0.0, 12)" />
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[11.0.0, 12)" />
   </ItemGroup>  
   
   <Import Project="build\Microsoft.AspNetCore.ClientAssets.targets" />
