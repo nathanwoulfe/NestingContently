@@ -7,9 +7,9 @@ using Umbraco.Extensions;
 
 namespace NestingContently.Umbraco.ValueConverters;
 
-public class NC_BlockListPropertyValueConverter : BlockListPropertyValueConverter
+public class NestingContentlyBlockListPropertyValueConverter : BlockListPropertyValueConverter
 {
-    public NC_BlockListPropertyValueConverter(IProfilingLogger logger, BlockEditorConverter blockConverter)
+    public NestingContentlyBlockListPropertyValueConverter(IProfilingLogger logger, BlockEditorConverter blockConverter)
         : base(logger, blockConverter)
     {
 
@@ -29,6 +29,6 @@ public class NC_BlockListPropertyValueConverter : BlockListPropertyValueConverte
             return null;
         }
 
-        return new BlockListModel(model.Where(i => i.Settings.IsVisible()).ToList());
+        return new BlockListModel(model.Where(i => i.Settings?.IsVisible() ?? true).ToList());
     }
 }

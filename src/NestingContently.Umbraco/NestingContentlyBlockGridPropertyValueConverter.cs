@@ -8,9 +8,9 @@ using Umbraco.Extensions;
 
 namespace NestingContently.Umbraco.ValueConverters;
 
-public class NC_BlockGridPropertyValueConverter : BlockGridPropertyValueConverter
+public class NestingContentlyBlockGridPropertyValueConverter : BlockGridPropertyValueConverter
 {
-    public NC_BlockGridPropertyValueConverter(IProfilingLogger logger, BlockEditorConverter blockConverter, IJsonSerializer jsonSerializer)
+    public NestingContentlyBlockGridPropertyValueConverter(IProfilingLogger logger, BlockEditorConverter blockConverter, IJsonSerializer jsonSerializer)
         : base(logger, blockConverter, jsonSerializer)
     {
 
@@ -30,7 +30,7 @@ public class NC_BlockGridPropertyValueConverter : BlockGridPropertyValueConverte
             return null;
         }
 
-        var blockGridItems = model.Where(i => i.Settings.IsVisible()).ToList();
+        var blockGridItems = model.Where(i => i.Settings?.IsVisible() ?? true).ToList();
 
         RemoveHiddenAreas(blockGridItems);
 
@@ -46,7 +46,7 @@ public class NC_BlockGridPropertyValueConverter : BlockGridPropertyValueConverte
                     List<BlockGridItem> collectedItems = new();
                     foreach (BlockGridItem item in area)
                     {
-                        if (item.Settings.IsVisible())
+                        if (item.Settings?.IsVisible() ?? true)
                         {
                             collectedItems.Add(item);
                         }
