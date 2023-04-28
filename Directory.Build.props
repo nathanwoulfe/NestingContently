@@ -1,16 +1,15 @@
 <Project>
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <TargetFramework>net7.0</TargetFramework>
     <Authors>Nathan Woulfe</Authors>
     <Copyright>Copyright © Nathan Woulfe $([System.DateTime]::Today.ToString('yyyy'))</Copyright>
-    <Product>Nesting Contently</Product>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/nathanwoulfe/nestingcontently</PackageProjectUrl>
     <RepositoryUrl>https://github.com/nathanwoulfe/nestingcontently</RepositoryUrl>
-    <PackageIcon>icon.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NeutralLanguage>en-US</NeutralLanguage>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>Nullable</WarningsAsErrors>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -26,6 +25,7 @@
   
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)icon.png" Pack="true" PackagePath="" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <PropertyGroup>

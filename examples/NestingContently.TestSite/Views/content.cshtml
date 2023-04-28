@@ -1,4 +1,4 @@
-﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Content>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Content>
 
 @using Clean.Core.Models.ViewModels
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
@@ -11,8 +11,6 @@
 @await Html.PartialAsync("~/Views/Partials/pageHeader.cshtml", new PageHeaderViewModel(Model.Name, Model.Title, Model.Subtitle, Model.MainImage))
 
 <article>
-    
-@await Html.GetBlockGridHtmlAsync(Model, "blockGrid")   
-@Html.GetBlockListHtml(Model, "blockList")
-@Html.GetGridHtml(Model, "mainContent", "Clean")
+    @await Html.GetBlockGridHtmlAsync(Model, "blockGrid")
+    @Html.GetGridHtml(Model, "mainContent", "Clean")
 </article>
