@@ -3,7 +3,7 @@
     <PackageId>NestingContently.Umbraco</PackageId>
     <Title>Nesting Contently</Title>
     <Description>A property editor for toggling the display state of Block elements in Umbraco CMS</Description>
-    <PackageTag>umbraco umbraco-cms umbraco-marketplace block-list block-grid</PackageTag>
+    <PackageTags>umbraco umbraco-cms umbraco-marketplace block-list block-grid</PackageTags>
     <StaticWebAssetBasePath>App_Plugins/NestingContently</StaticWebAssetBasePath>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
   </PropertyGroup>
