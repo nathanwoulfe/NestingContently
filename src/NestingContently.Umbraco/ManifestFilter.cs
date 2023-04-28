@@ -17,10 +17,6 @@ internal sealed class ManifestFilter : IManifestFilter
             {
                 $"{Constants.PackagePath}nesting-contently.min.js",
             },
-            Stylesheets = new[]
-            {
-                $"{Constants.PackagePath}nesting-contently.min.css",
-            },
         });
     }
 }
