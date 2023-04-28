@@ -20,7 +20,7 @@ Installing and setting up the latest Nesting Contently version is straightforwar
 
 There's no longer a property editor to install, just some helpful Javascript to manage injecting the button and syncing the value change back to the block settings.
 
-Nesting Contently 5 ships with property value converters for Block List and Block Grid, to remove any hidden blocks before rendering.
+Nesting Contently v10 ships with property value converters for Block List and Block Grid, to remove any hidden blocks before rendering.
 
 For Block Grid, this works with infinitely nested blocks, so feel free to create disgusting levels of nesting (don't really, your editors will hate you).
 
