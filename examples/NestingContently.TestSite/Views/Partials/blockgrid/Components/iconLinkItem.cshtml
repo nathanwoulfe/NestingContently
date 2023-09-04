@@ -1,0 +1,7 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>;
+
+@* Render the value of field with alias 'heading' from the Element Type selected as Content section *@
+<h1>@Model.Content.Value("icon")</h1>
+
+@* Render the block areas *@
+@await Html.GetBlockGridItemAreasHtmlAsync(Model)

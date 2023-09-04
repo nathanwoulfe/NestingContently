@@ -27,14 +27,11 @@ namespace NestingContently.TestSite
         /// This method gets called by the runtime. Use this method to add services to the container.
         /// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940.
         /// </remarks>
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddUmbraco(_env, _config)
+        public void ConfigureServices(IServiceCollection services) => services.AddUmbraco(_env, _config)
                 .AddBackOffice()
                 .AddWebsite()
                 .AddComposers()
                 .Build();
-        }
 
         /// <summary>
         /// Configures the application.
@@ -45,20 +42,20 @@ namespace NestingContently.TestSite
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                _ = app.UseDeveloperExceptionPage();
             }
 
             app.UseUmbraco()
                 .WithMiddleware(u =>
                 {
-                    u.UseBackOffice();
-                    u.UseWebsite();
+                    _ = u.UseBackOffice();
+                    _ = u.UseWebsite();
                 })
                 .WithEndpoints(u =>
                 {
-                    u.UseInstallerEndpoints();
-                    u.UseBackOfficeEndpoints();
-                    u.UseWebsiteEndpoints();
+                    _ = u.UseInstallerEndpoints();
+                    _ = u.UseBackOfficeEndpoints();
+                    _ = u.UseWebsiteEndpoints();
                 });
         }
     }

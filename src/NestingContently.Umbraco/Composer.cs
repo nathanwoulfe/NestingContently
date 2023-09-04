@@ -3,10 +3,7 @@ using Umbraco.Cms.Core.DependencyInjection;
 
 namespace NestingContently.Umbraco;
 
-internal class Composer : IComposer
+internal sealed class Composer : IComposer
 {
-    public void Compose(IUmbracoBuilder builder)
-    {
-        _ = builder.ManifestFilters().Append<ManifestFilter>();
-    }
+    public void Compose(IUmbracoBuilder builder) => builder.ManifestFilters().Append<ManifestFilter>();
 }

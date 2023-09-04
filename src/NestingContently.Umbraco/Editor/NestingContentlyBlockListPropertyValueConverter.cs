@@ -3,16 +3,19 @@ using Umbraco.Cms.Core.Models.Blocks;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+using Umbraco.Cms.Core.Services;
 using Umbraco.Extensions;
 
-namespace NestingContently.Umbraco.ValueConverters;
+namespace NestingContently.Umbraco.Editor;
 
 public class NestingContentlyBlockListPropertyValueConverter : BlockListPropertyValueConverter
 {
-    public NestingContentlyBlockListPropertyValueConverter(IProfilingLogger logger, BlockEditorConverter blockConverter)
-        : base(logger, blockConverter)
+    public NestingContentlyBlockListPropertyValueConverter(
+        IProfilingLogger logger,
+        IContentTypeService contentTypeService,
+        BlockEditorConverter blockConverter)
+        : base(logger, blockConverter, contentTypeService)
     {
-
     }
 
     public override object? ConvertIntermediateToObject(
@@ -29,6 +32,6 @@ public class NestingContentlyBlockListPropertyValueConverter : BlockListProperty
             return null;
         }
 
-        return new BlockListModel(model.Where(i => i.Settings?.IsVisible() ?? true).ToList());
+        return new BlockListModel(model.Where(i => i.Settings?.IsVisible() ?? i.Content.IsVisible()).ToList());
     }
 }
