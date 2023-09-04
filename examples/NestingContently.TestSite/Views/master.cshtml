@@ -22,7 +22,6 @@
 <body>
     @await Html.CachedPartialAsync("~/Views/Partials/mainNavigation.cshtml", model: Model, cacheTimeout: TimeSpan.FromMinutes(60))
     @RenderBody()
-    @await Html.CachedPartialAsync("~/Views/Partials/footer.cshtml", model: Model, cacheTimeout: TimeSpan.FromMinutes(60))
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

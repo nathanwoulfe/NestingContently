@@ -6,14 +6,16 @@ using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
 using Umbraco.Cms.Core.Serialization;
 using Umbraco.Extensions;
 
-namespace NestingContently.Umbraco.ValueConverters;
+namespace NestingContently.Umbraco.Editor;
 
 public class NestingContentlyBlockGridPropertyValueConverter : BlockGridPropertyValueConverter
 {
-    public NestingContentlyBlockGridPropertyValueConverter(IProfilingLogger logger, BlockEditorConverter blockConverter, IJsonSerializer jsonSerializer)
+    public NestingContentlyBlockGridPropertyValueConverter(
+        IProfilingLogger logger,
+        BlockEditorConverter blockConverter,
+        IJsonSerializer jsonSerializer)
         : base(logger, blockConverter, jsonSerializer)
     {
-
     }
 
     public override object? ConvertIntermediateToObject(
@@ -30,7 +32,7 @@ public class NestingContentlyBlockGridPropertyValueConverter : BlockGridProperty
             return null;
         }
 
-        var blockGridItems = model.Where(i => i.Settings?.IsVisible() ?? true).ToList();
+        var blockGridItems = model.Where(i => i.Settings?.IsVisible() ?? i.Content.IsVisible()).ToList();
 
         RemoveHiddenAreas(blockGridItems);
 
@@ -43,19 +45,12 @@ public class NestingContentlyBlockGridPropertyValueConverter : BlockGridProperty
                 List<BlockGridArea> collectedAreas = new();
                 foreach (BlockGridArea area in blockGridItem.Areas)
                 {
-                    List<BlockGridItem> collectedItems = new();
-                    foreach (BlockGridItem item in area)
-                    {
-                        if (item.Settings?.IsVisible() ?? true)
-                        {
-                            collectedItems.Add(item);
-                        }
-                    }
+                    IEnumerable<BlockGridItem> collectedItems = area.Where(x => x.Settings?.IsVisible() ?? x.Content.IsVisible());
 
                     if (collectedItems.Any())
                     {
                         RemoveHiddenAreas(collectedItems);
-                        collectedAreas.Add(new(collectedItems, area.Alias, area.RowSpan, area.ColumnSpan));
+                        collectedAreas.Add(new(collectedItems.ToList(), area.Alias, area.RowSpan, area.ColumnSpan));
                     }
                 }
 

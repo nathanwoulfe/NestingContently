@@ -1,6 +1,6 @@
 class ButtonComponentController {
 
-  prop: Record<string, any> = {};
+  prop?: Record<string, any>;
   selector?: 'grid' | 'list';
   node;
   iconTitle = '';
@@ -17,38 +17,55 @@ class ButtonComponentController {
   }
 
   async $onInit() {
-    if (!this.node || !this.node.settings) {
+    if (!this.node && !this.node.content && !this.node.settings) {
       this.$element[0].style.display = 'none';
       return;
     }
 
-    [this.enable, this.disable] = await this.localizationService.localizeMany(['actions_enable', 'actions_disable']);
-
-    let activeVariant = this.node.settings.variants.find(x => x.active);
-    activeVariant = activeVariant ?? this.node.settings.variants[0];
-
-    activeVariant.tabs.forEach(tab => {
-      tab.properties.forEach(prop => {
-        if (prop.alias === 'umbracoNaviHide') {
-          this.prop = prop;
-          return;
-        }
-      });
-
-      if (this.prop) {
-        return;
-      }
-    });
+    this.setProp();
 
     if (!this.prop) {
       this.$element[0].style.display = 'none';
       return;
     }
 
-    this.valueWatcher = this.$scope.$watch(() => this.prop.value, (newVal, oldVal) => {
-      if (!newVal) {
-        return;
-      }
+    [this.enable, this.disable] = await this.localizationService.localizeMany(['actions_enable', 'actions_disable']);
+
+    this.setValueWatcher();
+    this.setTitle();
+    this.setClass();
+  }
+
+  $onDestroy() {
+    this.valueWatcher ? this.valueWatcher() : {};
+  }
+
+  setProp() {
+    const setProp = (src) => {
+      if (!src) return;
+
+      (src.variants.find(x => x.active) ?? src.variants[0]).tabs.forEach(tab => {
+        tab.properties.forEach(prop => {
+          if (prop.alias === 'umbracoNaviHide') {
+            this.prop = prop;
+            return;
+          }
+        });
+
+        if (this.prop) return;        
+      });
+    }
+
+    setProp(this.node.settings);
+
+    if (!this.prop) {
+      setProp(this.node.content);
+    }
+  }
+
+  setValueWatcher() {
+    this.valueWatcher = this.$scope.$watch(() => this.prop!.value, (newVal, oldVal) => {
+      if (!newVal) return;      
 
       this.setTitle();
       this.setClass();
@@ -57,32 +74,25 @@ class ButtonComponentController {
         this.node._parentForm.$setDirty();
       }
     });
-
-    this.setTitle();
-    this.setClass();    
   }
 
-  $onDestroy() {
-    this.valueWatcher ? this.valueWatcher() : {};
-  }
-
-  setClass = () => {
-    if (!this.selector) {
-      return;
-    }
+  setClass() {
+    if (!this.selector) return;    
 
     const elm = this.$element.closest(`.umb-block-${this.selector}__block`)[0]
 
-    if (!elm) {
-      return;
-    }
+    if (!elm) return;
 
-    elm.style.opacity = this.prop.value !== '1' ? '1' : '0.5';
+    elm.style.opacity = this.prop!.value !== '1' ? '1' : '0.5';
   }
 
-  setTitle = () => this.iconTitle = this.prop.value !== '1' ? this.disable : this.enable;
+  setTitle() {
+    this.iconTitle = this.prop!.value !== '1' ? this.disable : this.enable;
+  }
 
-  toggle = () => this.prop.value = this.prop.value !== '1' ? '1' : '0';  
+  toggle() {
+    this.prop!.value = this.prop!.value !== '1' ? '1' : '0';
+  }
 }
 
 const template =

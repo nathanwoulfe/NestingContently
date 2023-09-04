@@ -16,4 +16,6 @@
 </article>
 }
 
+@await Html.GetBlockGridHtmlAsync(Model, "grid")
+
 @await Html.PartialAsync("~/Views/Partials/latestArticles.cshtml")

@@ -6,19 +6,16 @@
     <PackageTags>umbraco umbraco-cms umbraco-marketplace block-list block-grid</PackageTags>
     <StaticWebAssetBasePath>App_Plugins/NestingContently</StaticWebAssetBasePath>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <SupportedPlatform Include="browser" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="10.4.0" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.4.0" />
   </ItemGroup>
-  
-	<ItemGroup>
-        <PackageReference Include="Umbraco.Cms.Web.Website" Version="[10.4.0, 11)" />
-        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.4.0, 11)" />
-  </ItemGroup>  
-  
+
   <Import Project="build\Microsoft.AspNetCore.ClientAssets.targets" />
+
   <Target Name="ClientAssetsBuildOutputPath" AfterTargets="ClientAssetsBuild">
     <WriteLinesToFile File="Backoffice\gulp\config.outputPath.js" Lines="export const outputPath = '../$(IntermediateOutputPath.Replace('\', '/'))clientassets';" Overwrite="true" />
   </Target>

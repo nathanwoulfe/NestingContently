@@ -9,9 +9,6 @@
   <ItemGroup>
     <PackageReference Include="clean" Version="2.1.6" />
     <PackageReference Include="Umbraco.Cms" Version="10.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\NestingContently.Umbraco\NestingContently.Umbraco.csproj" />
   </ItemGroup>
   
