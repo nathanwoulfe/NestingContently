@@ -4,7 +4,7 @@ There are workarounds, but for our Dear Editors, the best solution is an additio
 
 While the days of Nested Content are largely behind us, the same issue exists in Block Grid and Block List.
 
-The latest versions of Nesting Contently support ONLY Block-based editors on Umbraco 10 and 11, adding a toggle to the block header so your editors will forever be ... wait for it ... Nesting Contently.
+The latest versions of Nesting Contently support ONLY Block-based editors on Umbraco 10+, adding a toggle to the block header so your editors will forever be ... wait for it ... Nesting Contently.
 
 # Getting started
 
@@ -13,14 +13,14 @@ Installing and setting up the latest Nesting Contently version is straightforwar
 - Install via your CLI of choice:
   - `dotnet add package NestingContently.Umbraco`
   - `Install-Package NestingContently.Umbraco`
-- Add a true/false property to the block settings element
+- Add a true/false property to the block element (settings or content, either is fine)
 - The property alias MUST be `umbracoNaviHide`
 - Done. That's it. No more.
 - Amaze your editors with the added flexibility
 
-There's no longer a property editor to install, just some helpful Javascript to manage injecting the button and syncing the value change back to the block settings.
+There's no longer a property editor to install, just some helpful Javascript to manage injecting the button and syncing the value change back to the block.
 
-Nesting Contently v10 ships with property value converters for Block List and Block Grid, to remove any hidden blocks before rendering.
+Nesting Contently v10+ ships with property value converters for Block List and Block Grid, to remove any hidden blocks before rendering.
 
 For Block Grid, this works with infinitely nested blocks, so feel free to create disgusting levels of nesting (don't really, your editors will hate you).
 
