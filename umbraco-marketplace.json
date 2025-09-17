@@ -15,19 +15,5 @@
   "LicenseTypes": [ "Free" ],
   "IssueTrackerUrl": "https://github.com/nathanwoulfe/nestingcontently/issues",
   "PackageType": "Package",
-  "DiscussionForumUrl": "https://github.com/nathanwoulfe/nestingcontently/discussions",
-  "Screenshots": [
-    {
-      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/refs/heads/v10/dev/duck1.webp",
-      "Caption": "Nesting Contently in action - duck 1"
-    },
-    {
-      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/refs/heads/v10/dev/duck2.jpg",
-      "Caption": "Nesting Contently in action - duck 2"
-    }
-    {
-      "VideoUrl": "https://www.youtube.com/watch?v=tXrgBtgc4gI",
-      "Caption": "Nesting Contently in action - video, sort 3"
-    }
-  ]
+  "DiscussionForumUrl": "https://github.com/nathanwoulfe/nestingcontently/discussions"
 }
