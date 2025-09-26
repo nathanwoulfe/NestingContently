@@ -18,11 +18,11 @@
   "DiscussionForumUrl": "https://github.com/nathanwoulfe/nestingcontently/discussions",
     "Screenshots": [
     {
-      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/refs/heads/v10/dev/duck1.webp",
+      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/v10/dev/duck1.webp",
       "Caption": "Nesting Contently in action - duck 1"
     },
     {
-      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/refs/heads/v10/dev/duck2.jpg",
+      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/v10/dev/duck2.jpg",
       "Caption": "Nesting Contently in action - duck 2"
     },
     {
@@ -30,11 +30,11 @@
       "Caption": "Nesting Contently in action - video, sort 4"
     },
     {
-      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/refs/heads/v10/dev/duck3.jpg",
+      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/v10/dev/duck3.jpg",
       "Caption": "Nesting Contently in action - duck 3"
     },
     {
-      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/refs/heads/v10/dev/duck4.png",
+      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/v10/dev/duck4.png",
       "Caption": "Nesting Contently in action - duck 4"
     },      
   ]
