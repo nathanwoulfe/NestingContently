@@ -28,6 +28,14 @@
     {
       "VideoUrl": "https://www.youtube.com/watch?v=tXrgBtgc4gI",
       "Caption": "Nesting Contently in action - video, sort 4"
-    }
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/refs/heads/v10/dev/duck3.jpg",
+      "Caption": "Nesting Contently in action - duck 3"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/nathanwoulfe/NestingContently/refs/heads/v10/dev/duck4.png",
+      "Caption": "Nesting Contently in action - duck 4"
+    },      
   ]
 }
