@@ -53,7 +53,6 @@ namespace NestingContently.TestSite
                 })
                 .WithEndpoints(u =>
                 {
-                    _ = u.UseInstallerEndpoints();
                     _ = u.UseBackOfficeEndpoints();
                     _ = u.UseWebsiteEndpoints();
                 });

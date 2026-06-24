@@ -4,7 +4,9 @@ There are workarounds, but for our Dear Editors, the best solution is an additio
 
 While the days of Nested Content are largely behind us, the same issue exists in Block Grid and Block List.
 
-The latest versions of Nesting Contently support ONLY Block-based editors on Umbraco 10+, adding a toggle to the block header so your editors will forever be ... wait for it ... Nesting Contently.
+The latest versions of Nesting Contently support ONLY Block-based editors, adding a toggle to the block's action bar so your editors will forever be ... wait for it ... Nesting Contently.
+
+Version 17+ targets Umbraco's new (Bellissima) backoffice and requires Umbraco 17.5+, where the toggle is implemented as a native `blockAction` extension. Earlier versions (v10–v13) target the legacy AngularJS backoffice.
 
 # Getting started
 
@@ -18,7 +20,7 @@ Installing and setting up the latest Nesting Contently version is straightforwar
 - Done. That's it. No more.
 - Amaze your editors with the added flexibility
 
-There's no longer a property editor to install, just some helpful Javascript to manage injecting the button and syncing the value change back to the block.
+There's no longer a property editor to install — on Umbraco 17+ the toggle is a `blockAction` registered for the Block List and Block Grid editors, which reads and writes the `umbracoNaviHide` value on the block and dims hidden blocks in the backoffice.
 
 Nesting Contently v10+ ships with property value converters for Block List and Block Grid, to remove any hidden blocks before rendering.
 

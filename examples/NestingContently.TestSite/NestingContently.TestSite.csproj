@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="clean" Version="7.0.7" />
     <PackageReference Include="Umbraco.Cms" Version="17.5.0-rc2" />
+    <!-- Required for the default InMemoryAuto ModelsBuilder mode in Umbraco v17. -->
+    <PackageReference Include="Umbraco.Cms.DevelopmentMode.Backoffice" Version="17.5.0-rc2" />
     <ProjectReference Include="..\..\src\NestingContently.Umbraco\NestingContently.Umbraco.csproj" />
   </ItemGroup>
   
