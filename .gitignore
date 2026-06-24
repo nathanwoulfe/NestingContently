@@ -9,3 +9,4 @@ node_modules/
 /NestingContently.Umbraco/__out
 src/NestingContently.Umbraco/Client/node_modules/
 src/NestingContently.Umbraco/wwwroot/
+.idea/

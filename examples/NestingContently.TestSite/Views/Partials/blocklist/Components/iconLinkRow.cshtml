@@ -5,7 +5,7 @@
 @{
     var row = Model.Content as IconLinkRow;
     var settings = Model.Settings as IconLinkRowSettings;
-    if (settings?.Hide ?? false) { return; }
+    if (!(settings?.IsVisible() ?? true)) { return; }
 }
 
 <li class="list-inline-item">

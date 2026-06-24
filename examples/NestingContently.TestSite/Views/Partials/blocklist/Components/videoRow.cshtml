@@ -5,7 +5,7 @@
 @{
     var row = Model.Content as VideoRow;
     var settings = Model.Settings as VideoRowSettings;
-    if (settings?.Hide ?? false) { return; }
+    if (!(settings?.IsVisible() ?? true)) { return; }
     if (string.IsNullOrWhiteSpace(row.VideoUrl)) { return; }
 
     var spacingClasses = "";
