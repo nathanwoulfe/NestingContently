@@ -1,0 +1,16 @@
+{
+  "name": "nesting-contently",
+  "version": "17.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "watch": "vite build --watch",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@umbraco-cms/backoffice": "17.5.0-rc2",
+    "typescript": "^5.5.0",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.0"
+  }
+}
