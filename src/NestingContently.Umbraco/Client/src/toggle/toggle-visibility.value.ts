@@ -1,13 +1,15 @@
-/** The stored value used to mark a block as hidden (umbracoNaviHide). */
-export const HIDDEN_VALUE = '1';
-export const VISIBLE_VALUE = '0';
+/**
+ * Helpers for interpreting and flipping the umbracoNaviHide value. The value is a true/false
+ * property, so the canonical hidden value is the boolean `true`. We also treat the legacy string
+ * "1"/number 1 as hidden so content created by older versions keeps working.
+ */
 
-/** A block is hidden only when its umbracoNaviHide value is exactly "1". */
+/** A block is hidden when umbracoNaviHide is truthy in any of its accepted forms. */
 export function isHidden(value: unknown): boolean {
-  return value === HIDDEN_VALUE;
+  return value === true || value === '1' || value === 1 || value === 'true';
 }
 
-/** The value to write when toggling: visible if currently hidden, else hidden. */
-export function nextVisibilityValue(value: unknown): '0' | '1' {
-  return isHidden(value) ? VISIBLE_VALUE : HIDDEN_VALUE;
+/** The value to write when toggling: the opposite of the current hidden state (boolean). */
+export function nextVisibilityValue(value: unknown): boolean {
+  return !isHidden(value);
 }

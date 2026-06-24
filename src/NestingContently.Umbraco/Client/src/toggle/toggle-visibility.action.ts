@@ -1,49 +1,61 @@
 import { findBlockEntry, getDimTarget } from './block-host.js';
 import { isHidden, nextVisibilityValue } from './toggle-visibility.value.js';
-import { UMB_BLOCK_ENTRY_CONTEXT, UmbBlockActionBase } from '@umbraco-cms/backoffice/block';
+import { UMB_BLOCK_ENTRY_CONTEXT, UMB_BLOCK_MANAGER_CONTEXT, UmbBlockActionBase } from '@umbraco-cms/backoffice/block';
 import type { MetaBlockActionDefaultKind, UmbBlockActionArgs, UmbBlockDataModel } from '@umbraco-cms/backoffice/block';
+import { firstValueFrom } from '@umbraco-cms/backoffice/external/rxjs';
 import type { UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
+import type { UmbVariantId } from '@umbraco-cms/backoffice/variant';
 
 /** The block property toggled to hide/show a block (matches the legacy package). */
 export const PROPERTY_ALIAS = 'umbracoNaviHide';
 
+/** Default editor for the umbracoNaviHide property (the package requires a true/false property). */
+const DEFAULT_EDITOR_ALIAS = 'Umbraco.TrueFalse';
+
 const HIDDEN_ATTR = 'nc-hidden';
 
-function valueEntry(model: UmbBlockDataModel | undefined) {
-  return model?.values?.find((x) => x.alias === PROPERTY_ALIAS);
+interface Target {
+  kind: 'content' | 'settings';
+  data: UmbBlockDataModel;
+  variantId: UmbVariantId;
 }
 
 /**
- * Block action that toggles the umbracoNaviHide property on a block and dims hidden blocks in the
- * backoffice. Uses the default block-action button kind for native styling; the toggle and dimming
- * are driven from here via the block entry context. Prefers the settings element if it owns the
- * property, otherwise the content element (mirrors the legacy AngularJS behaviour).
+ * Block action that toggles the umbracoNaviHide property on a block and dims hidden blocks. Uses the
+ * default block-action button kind for native styling. The property may live on the content or the
+ * settings element type; we detect which one declares it (and its variant) via the content-type
+ * structures, then rebuild the element's values array and persist it through the block manager.
  */
 export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockActionDefaultKind> {
-  #context?: typeof UMB_BLOCK_ENTRY_CONTEXT.TYPE;
+  #entry?: typeof UMB_BLOCK_ENTRY_CONTEXT.TYPE;
+  #manager?: typeof UMB_BLOCK_MANAGER_CONTEXT.TYPE;
   #settingsHidden = false;
   #contentHidden = false;
 
   constructor(host: UmbControllerHost, args: UmbBlockActionArgs<MetaBlockActionDefaultKind>) {
     super(host, args);
 
-    this.consumeContext(UMB_BLOCK_ENTRY_CONTEXT, async (context) => {
-      this.#context = context;
-      if (!context) {
+    this.consumeContext(UMB_BLOCK_MANAGER_CONTEXT, (manager) => {
+      this.#manager = manager;
+    });
+
+    this.consumeContext(UMB_BLOCK_ENTRY_CONTEXT, async (entry) => {
+      this.#entry = entry;
+      if (!entry) {
         return;
       }
 
       // Observe the value so we can dim the block on load and whenever it changes.
-      if (context.getSettings()) {
-        const settings = await context.settingsPropertyValueByAlias<string>(PROPERTY_ALIAS);
+      if (entry.getSettings()) {
+        const settings = await entry.settingsPropertyValueByAlias(PROPERTY_ALIAS);
         this.observe(settings, (value) => {
           this.#settingsHidden = isHidden(value);
           this.#applyDim();
         }, 'ncSettingsVisibility');
       }
 
-      if (context.getContent()) {
-        const content = await context.contentPropertyValueByAlias<string>(PROPERTY_ALIAS);
+      if (entry.getContent()) {
+        const content = await entry.contentPropertyValueByAlias(PROPERTY_ALIAS);
         this.observe(content, (value) => {
           this.#contentHidden = isHidden(value);
           this.#applyDim();
@@ -53,26 +65,74 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
   }
 
   override async execute(): Promise<void> {
-    const context = this.#context;
-    if (!context) {
+    const target = await this.#resolveTarget();
+    if (!target) {
+      // No umbracoNaviHide property on either element type — nothing to toggle.
       return;
     }
 
-    const settings = context.getSettings();
-    const content = context.getContent();
-    const settingsEntry = valueEntry(settings);
-    const contentEntry = valueEntry(content);
+    const existing = target.data.values.find(
+      (v) => v.alias === PROPERTY_ALIAS && target.variantId.compare(v),
+    );
+    const next = nextVisibilityValue(existing?.value);
 
-    // Toggle wherever the property is defined; prefer settings when present.
-    const useSettings = settingsEntry !== undefined || (contentEntry === undefined && settings !== undefined);
-    const current = useSettings ? settingsEntry?.value : contentEntry?.value;
-    const next = nextVisibilityValue(current);
+    const newEntry = {
+      editorAlias: existing?.editorAlias ?? DEFAULT_EDITOR_ALIAS,
+      culture: target.variantId.culture,
+      segment: target.variantId.segment,
+      alias: PROPERTY_ALIAS,
+      value: next,
+    };
+    const newValues = [
+      ...target.data.values.filter((v) => !(v.alias === PROPERTY_ALIAS && target.variantId.compare(v))),
+      newEntry,
+    ];
+    const newData: UmbBlockDataModel = { ...target.data, values: newValues };
 
-    if (useSettings) {
-      context.setSettingsPropertyValue(PROPERTY_ALIAS, next);
+    if (target.kind === 'settings') {
+      this.#manager?.setOneSettings(newData);
     } else {
-      context.setContentPropertyValue(PROPERTY_ALIAS, next);
+      this.#manager?.setOneContent(newData);
     }
+  }
+
+  /** Find which element type (content or settings) declares umbracoNaviHide, with its variant id. */
+  async #resolveTarget(): Promise<Target | undefined> {
+    const entry = this.#entry;
+    const manager = this.#manager;
+    if (!entry || !manager) {
+      return undefined;
+    }
+
+    const settings = entry.getSettings();
+    const content = entry.getContent();
+
+    // Prefer settings when it declares the property (mirrors the legacy behaviour).
+    const settingsVariantId = await this.#variantIdFor(settings);
+    if (settings && settingsVariantId) {
+      return { kind: 'settings', data: settings, variantId: settingsVariantId };
+    }
+
+    const contentVariantId = await this.#variantIdFor(content);
+    if (content && contentVariantId) {
+      return { kind: 'content', data: content, variantId: contentVariantId };
+    }
+
+    return undefined;
+  }
+
+  /** Resolve the variant id for umbracoNaviHide on the given element's structure, or undefined. */
+  async #variantIdFor(data: UmbBlockDataModel | undefined): Promise<UmbVariantId | undefined> {
+    const entry = this.#entry;
+    const manager = this.#manager;
+    if (!data || !entry || !manager) {
+      return undefined;
+    }
+    const structure = manager.getStructure(data.contentTypeKey);
+    if (!structure) {
+      return undefined;
+    }
+    return firstValueFrom(await entry.propertyVariantId(structure, PROPERTY_ALIAS));
   }
 
   #applyDim() {
@@ -83,7 +143,6 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
     }
 
     const target = getDimTarget(entry);
-    // Clear any prior opacity on both possible targets to avoid a stale dim.
     entry.style.removeProperty('opacity');
     if (target !== entry) {
       target.style.removeProperty('opacity');
