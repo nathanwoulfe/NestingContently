@@ -1,4 +1,5 @@
-import { nextVisibilityValue } from './toggle-visibility.value.js';
+import { findBlockEntry, getDimTarget } from './block-host.js';
+import { isHidden, nextVisibilityValue } from './toggle-visibility.value.js';
 import { UMB_BLOCK_ENTRY_CONTEXT, UmbBlockActionBase } from '@umbraco-cms/backoffice/block';
 import type { MetaBlockActionDefaultKind, UmbBlockActionArgs, UmbBlockDataModel } from '@umbraco-cms/backoffice/block';
 import type { UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
@@ -6,24 +7,48 @@ import type { UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
 /** The block property toggled to hide/show a block (matches the legacy package). */
 export const PROPERTY_ALIAS = 'umbracoNaviHide';
 
-/** Reads the umbracoNaviHide value from a block data model, noting whether it is present. */
-export function readVisibility(model: UmbBlockDataModel | undefined): { found: boolean; value: unknown } {
-  const entry = model?.values?.find((x) => x.alias === PROPERTY_ALIAS);
-  return { found: entry !== undefined, value: entry?.value };
+const HIDDEN_ATTR = 'nc-hidden';
+
+function valueEntry(model: UmbBlockDataModel | undefined) {
+  return model?.values?.find((x) => x.alias === PROPERTY_ALIAS);
 }
 
 /**
- * Block action that toggles the umbracoNaviHide property on a block. Prefers the settings
- * element if it owns the property; otherwise falls back to the content element. This mirrors
- * the legacy AngularJS behaviour (settings first, then content).
+ * Block action that toggles the umbracoNaviHide property on a block and dims hidden blocks in the
+ * backoffice. Uses the default block-action button kind for native styling; the toggle and dimming
+ * are driven from here via the block entry context. Prefers the settings element if it owns the
+ * property, otherwise the content element (mirrors the legacy AngularJS behaviour).
  */
 export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockActionDefaultKind> {
   #context?: typeof UMB_BLOCK_ENTRY_CONTEXT.TYPE;
+  #settingsHidden = false;
+  #contentHidden = false;
 
   constructor(host: UmbControllerHost, args: UmbBlockActionArgs<MetaBlockActionDefaultKind>) {
     super(host, args);
-    this.consumeContext(UMB_BLOCK_ENTRY_CONTEXT, (context) => {
+
+    this.consumeContext(UMB_BLOCK_ENTRY_CONTEXT, async (context) => {
       this.#context = context;
+      if (!context) {
+        return;
+      }
+
+      // Observe the value so we can dim the block on load and whenever it changes.
+      if (context.getSettings()) {
+        const settings = await context.settingsPropertyValueByAlias<string>(PROPERTY_ALIAS);
+        this.observe(settings, (value) => {
+          this.#settingsHidden = isHidden(value);
+          this.#applyDim();
+        }, 'ncSettingsVisibility');
+      }
+
+      if (context.getContent()) {
+        const content = await context.contentPropertyValueByAlias<string>(PROPERTY_ALIAS);
+        this.observe(content, (value) => {
+          this.#contentHidden = isHidden(value);
+          this.#applyDim();
+        }, 'ncContentVisibility');
+      }
     });
   }
 
@@ -35,13 +60,12 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
 
     const settings = context.getSettings();
     const content = context.getContent();
-    const inSettings = readVisibility(settings);
-    const inContent = readVisibility(content);
+    const settingsEntry = valueEntry(settings);
+    const contentEntry = valueEntry(content);
 
-    // Use settings when the property lives there, or when a settings element exists and content
-    // does not declare the property; otherwise toggle on the content element.
-    const useSettings = inSettings.found || (settings !== undefined && !inContent.found);
-    const current = useSettings ? inSettings.value : inContent.value;
+    // Toggle wherever the property is defined; prefer settings when present.
+    const useSettings = settingsEntry !== undefined || (contentEntry === undefined && settings !== undefined);
+    const current = useSettings ? settingsEntry?.value : contentEntry?.value;
     const next = nextVisibilityValue(current);
 
     if (useSettings) {
@@ -50,6 +74,26 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
       context.setContentPropertyValue(PROPERTY_ALIAS, next);
     }
   }
+
+  #applyDim() {
+    const hidden = this.#settingsHidden || this.#contentHidden;
+    const entry = findBlockEntry(this.getHostElement());
+    if (!entry) {
+      return;
+    }
+
+    const target = getDimTarget(entry);
+    // Clear any prior opacity on both possible targets to avoid a stale dim.
+    entry.style.removeProperty('opacity');
+    if (target !== entry) {
+      target.style.removeProperty('opacity');
+    }
+    if (hidden) {
+      target.style.opacity = '0.6';
+    }
+    entry.toggleAttribute(HIDDEN_ATTR, hidden);
+  }
 }
 
+export { NestingContentlyToggleAction as api };
 export default NestingContentlyToggleAction;

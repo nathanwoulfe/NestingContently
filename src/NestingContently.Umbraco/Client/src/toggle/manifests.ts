@@ -1,12 +1,10 @@
-import type { ManifestBlockAction } from '@umbraco-cms/backoffice/block';
-
-const manifest: ManifestBlockAction = {
+const manifest: UmbExtensionManifest = {
   type: 'blockAction',
+  kind: 'default',
   alias: 'NestingContently.BlockAction.ToggleVisibility',
   name: 'NestingContently Toggle Visibility',
   weight: 5,
   forBlockEditor: ['block-list', 'block-grid'],
-  element: () => import('./toggle-visibility.element.js'),
   api: () => import('./toggle-visibility.action.js'),
   meta: {
     icon: 'icon-power',
@@ -14,4 +12,4 @@ const manifest: ManifestBlockAction = {
   },
 };
 
-export const manifests: Array<ManifestBlockAction> = [manifest];
+export const manifests: Array<UmbExtensionManifest> = [manifest];
