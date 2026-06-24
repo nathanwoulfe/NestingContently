@@ -12,7 +12,7 @@ parameters:
 
 variables:
   nodeVersion: 16.17.x
-  solution: NestingContently.sln
+  solution: NestingContently.slnx
   buildConfiguration: Release
   DOTNET_NOLOGO: true
   DOTNET_GENERATE_ASPNET_CERTIFICATE: false
