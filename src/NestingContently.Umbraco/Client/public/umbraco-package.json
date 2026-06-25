@@ -1,9 +1,9 @@
 {
-  "name": "NestingContently",
+  "name": "Nesting Contently",
   "version": "17.0.0",
   "extensions": [
     {
-      "name": "NestingContently Entry Point",
+      "name": "Nesting Contently Entry Point",
       "alias": "NestingContently.Bundle",
       "type": "bundle",
       "js": "/App_Plugins/NestingContently/nesting-contently.js"

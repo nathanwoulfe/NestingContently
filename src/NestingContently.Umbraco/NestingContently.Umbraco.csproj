@@ -10,15 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="17.5.0-rc2" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <ClientRoot>$(MSBuildThisFileDirectory)Client</ClientRoot>
-  </PropertyGroup>
-
-  <Target Name="BuildClient" BeforeTargets="AssignTargetPaths" Condition="!Exists('$(MSBuildThisFileDirectory)wwwroot/nesting-contently.js') Or '$(Configuration)' == 'Release'">
-    <Exec Command="npm install" WorkingDirectory="$(ClientRoot)" Condition="!Exists('$(ClientRoot)/node_modules')" />
-    <Exec Command="npm run build" WorkingDirectory="$(ClientRoot)" />
-  </Target>
 </Project>

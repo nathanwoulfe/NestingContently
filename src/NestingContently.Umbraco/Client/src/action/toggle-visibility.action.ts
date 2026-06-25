@@ -1,5 +1,4 @@
-import { findBlockEntry, getDimTarget } from './block-host.js';
-import { isHidden, nextVisibilityValue } from './toggle-visibility.value.js';
+import { findBlockEntry, getDimTarget, isHidden, nextVisibilityValue  } from '../util/index.js';
 import { UMB_BLOCK_ENTRY_CONTEXT, UMB_BLOCK_MANAGER_CONTEXT, UmbBlockActionBase } from '@umbraco-cms/backoffice/block';
 import type { MetaBlockActionDefaultKind, UmbBlockActionArgs, UmbBlockDataModel } from '@umbraco-cms/backoffice/block';
 import { firstValueFrom } from '@umbraco-cms/backoffice/external/rxjs';
@@ -7,7 +6,7 @@ import type { UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
 import type { UmbVariantId } from '@umbraco-cms/backoffice/variant';
 
 /** The block property toggled to hide/show a block (matches the legacy package). */
-export const PROPERTY_ALIAS = 'umbracoNaviHide';
+const PROPERTY_ALIAS = 'umbracoNaviHide';
 
 /** Default editor for the umbracoNaviHide property (the package requires a true/false property). */
 const DEFAULT_EDITOR_ALIAS = 'Umbraco.TrueFalse';
@@ -41,12 +40,9 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
 
     this.consumeContext(UMB_BLOCK_ENTRY_CONTEXT, async (entry) => {
       this.#entry = entry;
-      if (!entry) {
-        return;
-      }
 
       // Observe the value so we can dim the block on load and whenever it changes.
-      if (entry.getSettings()) {
+      if (entry?.getSettings()) {
         const settings = await entry.settingsPropertyValueByAlias(PROPERTY_ALIAS);
         this.observe(settings, (value) => {
           this.#settingsHidden = isHidden(value);
@@ -54,7 +50,7 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
         }, 'ncSettingsVisibility');
       }
 
-      if (entry.getContent()) {
+      if (entry?.getContent()) {
         const content = await entry.contentPropertyValueByAlias(PROPERTY_ALIAS);
         this.observe(content, (value) => {
           this.#contentHidden = isHidden(value);
@@ -65,6 +61,7 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
   }
 
   override async execute(): Promise<void> {
+    debugger;
     const target = await this.#resolveTarget();
     if (!target) {
       // No umbracoNaviHide property on either element type — nothing to toggle.
@@ -153,6 +150,3 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
     entry.toggleAttribute(HIDDEN_ATTR, hidden);
   }
 }
-
-export { NestingContentlyToggleAction as api };
-export default NestingContentlyToggleAction;

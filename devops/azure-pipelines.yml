@@ -69,15 +69,30 @@ stages:
                 nuget
               path: $(NUGET_PACKAGES)
 
+          # Restore NuGet packages
           - script: dotnet restore $(solution) --locked-mode
             displayName: Restore NuGet packages
 
+          # Client Restore
+          - task: Npm@1
+            displayName: NPM Install
+            inputs:
+              command: 'custom'
+              customCommand: 'run ci:install-client'
+
+          # Client Build
+          - task: Npm@1
+            displayName: Build client app
+            inputs:
+              command: 'custom'
+              customCommand: 'run ci:build-client'
+
           # Build
-          - script: dotnet build $(solution) --configuration $(buildConfiguration) --no-restore -p:ContinuousIntegrationBuild=true
+          - script: dotnet build $(solution) --configuration $(buildConfiguration) --no-restore
             displayName: Run dotnet build
 
-          # Pack (using --no-build causes RCL projects to generate an invalid package, even using .NET SDK 7, so keep --no-restore for now)
-          - script: dotnet pack $(solution) --configuration $(buildConfiguration) --no-restore --output $(Build.ArtifactStagingDirectory)/nupkg
+          # Pack
+          - script: dotnet pack $(solution) --configuration $(buildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)/nupkg
             displayName: Run dotnet pack
 
           # Publish

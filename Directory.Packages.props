@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <GlobalPackageReference Include="Nerdbank.GitVersioning" Version="3.9.50" PrivateAssets="all" />
+    <GlobalPackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" />
+    <GlobalPackageReference Include="Umbraco.GitVersioning.Extensions" Version="0.2.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="17.5.0-rc2" />
+  </ItemGroup>
+
+  <!-- Test site packages (not consumed by the main package) -->
+  <ItemGroup>
+    <PackageVersion Include="clean" Version="7.0.7" />
+    <PackageVersion Include="Umbraco.Cms" Version="17.5.0" />
+    <PackageVersion Include="Umbraco.Cms.DevelopmentMode.Backoffice" Version="17.5.0" />
+    <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
+  </ItemGroup>
+</Project>

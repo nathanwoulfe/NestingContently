@@ -7,12 +7,10 @@ export default defineConfig({
       formats: ['es'],
       fileName: () => 'nesting-contently.js',
     },
-    // StaticWebAssetBasePath (App_Plugins/NestingContently) already maps wwwroot/
-    // to /App_Plugins/NestingContently/, so output straight into wwwroot/.
     outDir: '../wwwroot',
-    emptyOutDir: true,
+    emptyOutDir: false,
     sourcemap: true,
-    rollupOptions: {
+    rolldownOptions: {
       external: [/^@umbraco-cms\//],
     },
   },

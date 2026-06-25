@@ -1,11 +1,13 @@
+import { NestingContentlyToggleAction } from "./toggle-visibility.action.js";
+
 const manifest: UmbExtensionManifest = {
   type: 'blockAction',
   kind: 'default',
   alias: 'NestingContently.BlockAction.ToggleVisibility',
-  name: 'NestingContently Toggle Visibility',
-  weight: 5,
+  name: 'Nesting Contently Toggle Visibility',
+  weight: 110,
   forBlockEditor: ['block-list', 'block-grid'],
-  api: () => import('./toggle-visibility.action.js'),
+  api: NestingContentlyToggleAction,
   meta: {
     icon: 'icon-power',
     label: 'Toggle visibility',
