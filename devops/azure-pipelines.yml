@@ -19,7 +19,7 @@ parameters:
     default: false
 
 variables:
-  nodeVersion: 22.x
+  nodeVersion: 24.x
   solution: NestingContently.slnx
   buildConfiguration: Release
   DOTNET_NOLOGO: true

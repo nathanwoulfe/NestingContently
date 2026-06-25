@@ -10,14 +10,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="17.5.0-rc2" />
+    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="[18.0.0, 18.999.999)" />
   </ItemGroup>
 
   <!-- Test site packages (not consumed by the main package) -->
   <ItemGroup>
     <PackageVersion Include="clean" Version="7.0.7" />
-    <PackageVersion Include="Umbraco.Cms" Version="17.5.0" />
-    <PackageVersion Include="Umbraco.Cms.DevelopmentMode.Backoffice" Version="17.5.0" />
+    <PackageVersion Include="Umbraco.Cms" Version="[18.0.0, 18.999.999)" />
+    <PackageVersion Include="Umbraco.Cms.DevelopmentMode.Backoffice" Version="[18.0.0, 18.999.999)" />
     <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
   </ItemGroup>
 </Project>

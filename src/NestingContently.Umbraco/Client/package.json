@@ -12,7 +12,7 @@
     "npm": ">=11"
   },
   "peerDependencies": {
-    "@umbraco-cms/backoffice": "17.5.0"
+    "@umbraco-cms/backoffice": "18.0.0"
   },
   "devDependencies": {
     "happy-dom": "^20.10.6",
