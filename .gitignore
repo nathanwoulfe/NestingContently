@@ -7,3 +7,6 @@ node_modules/
 /dist/App_Plugins/NestingContently
 /__out
 /NestingContently.Umbraco/__out
+src/NestingContently.Umbraco/Client/node_modules/
+src/NestingContently.Umbraco/wwwroot/
+.idea/

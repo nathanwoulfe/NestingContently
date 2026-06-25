@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/examples/">
+    <Project Path="examples/NestingContently.TestSite/NestingContently.TestSite.csproj">
+      <BuildDependency Project="src/NestingContently.Umbraco/NestingContently.Umbraco.csproj" />
+    </Project>
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".artifactignore" />
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path=".globalconfig" />
+    <File Path="azure-pipelines.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
+    <File Path="icon.png" />
+    <File Path="icon.svg" />
+    <File Path="localbuild.ps1" />
+    <File Path="NuGet.config" />
+    <File Path="README.md" />
+    <File Path="umbraco-marketplace.json" />
+    <File Path="version.json" />
+  </Folder>
+  <Project Path="src/NestingContently.Umbraco/NestingContently.Umbraco.csproj" />
+</Solution>
