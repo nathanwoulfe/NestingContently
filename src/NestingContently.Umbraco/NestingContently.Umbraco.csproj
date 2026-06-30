@@ -6,10 +6,13 @@
     <PackageTags>umbraco umbraco-cms umbraco-marketplace block-list block-grid</PackageTags>
     <StaticWebAssetBasePath>App_Plugins/NestingContently</StaticWebAssetBasePath>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms.Web.Website" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\**\*" Pack="true" />
   </ItemGroup>
 </Project>

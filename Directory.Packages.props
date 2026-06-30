@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="17.5.0-rc2" />
+    <PackageVersion Include="Umbraco.Cms.Web.Website" Version="17.5.0" />
   </ItemGroup>
 
   <!-- Test site packages (not consumed by the main package) -->
