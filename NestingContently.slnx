@@ -9,16 +9,20 @@
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
     <File Path=".globalconfig" />
-    <File Path="azure-pipelines.yml" />
     <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
     <File Path="global.json" />
     <File Path="icon.png" />
     <File Path="icon.svg" />
     <File Path="localbuild.ps1" />
     <File Path="NuGet.config" />
+    <File Path="package.json" />
     <File Path="README.md" />
     <File Path="umbraco-marketplace.json" />
     <File Path="version.json" />
+  </Folder>
+  <Folder Name="/devops/">
+    <File Path="devops/azure-pipelines.yml" />
   </Folder>
   <Project Path="src/NestingContently.Umbraco/NestingContently.Umbraco.csproj" />
 </Solution>

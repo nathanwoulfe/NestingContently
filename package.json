@@ -1,0 +1,12 @@
+{
+  "name": "nesting-contently",
+  "private": true,
+  "scripts": {
+    "ci:install-client": "cd ./src/NestingContently.Umbraco/Client && npm ci --no-fund --no-audit --prefer-offline",
+    "ci:build-client": "cd ./src/NestingContently.Umbraco/Client && npm run build",
+    "install-client": "cd ./src/NestingContently.Umbraco/Client && npm install",
+    "build-client": "cd ./src/NestingContently.Umbraco/Client && npm run build",
+    "watch-client": "cd ./src/NestingContently.Umbraco/Client && npm run watch",
+    "test-client": "cd ./src/NestingContently.Umbraco/Client && npm test"
+  }
+}
