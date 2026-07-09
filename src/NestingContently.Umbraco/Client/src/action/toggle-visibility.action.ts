@@ -1,12 +1,9 @@
-import { findBlockEntry, getDimTarget, isHidden, nextVisibilityValue  } from '../util/index.js';
+import { findBlockEntry, getDimTarget, isHidden, naviHideVariantId, nextVisibilityValue, PROPERTY_ALIAS } from '../util/index.js';
 import { UMB_BLOCK_ENTRY_CONTEXT, UMB_BLOCK_MANAGER_CONTEXT, UmbBlockActionBase } from '@umbraco-cms/backoffice/block';
 import type { MetaBlockActionDefaultKind, UmbBlockActionArgs, UmbBlockDataModel } from '@umbraco-cms/backoffice/block';
 import { firstValueFrom } from '@umbraco-cms/backoffice/external/rxjs';
 import type { UmbControllerHost } from '@umbraco-cms/backoffice/controller-api';
 import type { UmbVariantId } from '@umbraco-cms/backoffice/variant';
-
-/** The block property toggled to hide/show a block (matches the legacy package). */
-const PROPERTY_ALIAS = 'umbracoNaviHide';
 
 /** Default editor for the umbracoNaviHide property (the package requires a true/false property). */
 const DEFAULT_EDITOR_ALIAS = 'Umbraco.TrueFalse';
@@ -61,7 +58,6 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
   }
 
   override async execute(): Promise<void> {
-    debugger;
     const target = await this.#resolveTarget();
     if (!target) {
       // No umbracoNaviHide property on either element type — nothing to toggle.
@@ -122,14 +118,11 @@ export class NestingContentlyToggleAction extends UmbBlockActionBase<MetaBlockAc
   async #variantIdFor(data: UmbBlockDataModel | undefined): Promise<UmbVariantId | undefined> {
     const entry = this.#entry;
     const manager = this.#manager;
-    if (!data || !entry || !manager) {
+    if (!entry || !manager) {
       return undefined;
     }
-    const structure = manager.getStructure(data.contentTypeKey);
-    if (!structure) {
-      return undefined;
-    }
-    return firstValueFrom(await entry.propertyVariantId(structure, PROPERTY_ALIAS));
+    const variantId$ = await naviHideVariantId(entry, manager, data);
+    return variantId$ ? firstValueFrom(variantId$) : undefined;
   }
 
   #applyDim() {
